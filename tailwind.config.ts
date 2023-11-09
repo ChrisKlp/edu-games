@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import colors from 'tailwindcss/colors'
 
 const config: Config = {
   content: [
@@ -16,6 +17,25 @@ const config: Config = {
         '2xl': '6rem',
       },
       center: true,
+    },
+    extend: {
+      keyframes: {
+        wiggle: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        jump: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': {
+            transform: 'translateY(-4px)',
+            backgroundColor: colors.lime[600],
+          },
+        },
+      },
+      animation: {
+        wiggle: 'wiggle 200ms ease-in-out',
+        jump: 'jump 500ms ease-in-out',
+      },
     },
   },
   plugins: [],

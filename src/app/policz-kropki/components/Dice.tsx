@@ -25,7 +25,7 @@ export default function Dice({ number }: Props) {
       <Image
         src={images[number]}
         alt={`Dice ${number}`}
-        className="max-w-[125px] drop-shadow-2xl"
+        className="max-w-[150px] drop-shadow-2xl"
       />
     </div>
   )

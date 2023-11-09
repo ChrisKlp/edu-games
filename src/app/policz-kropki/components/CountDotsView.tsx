@@ -1,27 +1,37 @@
 'use client'
 
 import Button from '@/components/Button'
+import { useRouter } from 'next/navigation'
 import Dice from './Dice'
 
 type Props = {
   game: {
     questionNumber: number
     answers: number[]
+    dices: number[]
   }
 }
 
 export default function CountDotsView({ game }: Props) {
+  const router = useRouter()
+
   const handleClick = (item: string | number) => {
-    console.log(item)
+    router.refresh()
   }
   return (
     <>
       <div className="container flex flex-wrap justify-center gap-8 pt-10">
-        <Dice number={game.questionNumber} />
+        {game.dices.map((dice) => (
+          <Dice key={dice} number={dice} />
+        ))}
       </div>
       <div className="container grid grid-cols-2 gap-4">
         {game.answers.map((answer) => (
-          <Button key={answer} onClick={() => handleClick(answer)}>
+          <Button
+            key={answer}
+            isAnswer={answer === game.questionNumber}
+            handleClick={() => handleClick(answer)}
+          >
             {answer}
           </Button>
         ))}
