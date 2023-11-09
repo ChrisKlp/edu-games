@@ -15,6 +15,7 @@ const config: Config = {
         xl: '5rem',
         '2xl': '6rem',
       },
+      center: true,
     },
   },
   plugins: [],

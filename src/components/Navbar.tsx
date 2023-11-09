@@ -8,7 +8,7 @@ type Props = {
 export default function Navbar({ className }: Props) {
   return (
     <nav className={cn(className)}>
-      <div className="container mx-auto pb-5 pt-3">
+      <div className="container grid place-items-center pb-5 pt-3">
         <Logo />
       </div>
     </nav>

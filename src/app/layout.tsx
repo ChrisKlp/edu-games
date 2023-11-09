@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Nunito } from 'next/font/google'
 import './globals.css'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { cn } from '@/lib/utils'
 
 const inter = Inter({ subsets: ['latin'] })
+const nunito = Nunito({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Math Games',
@@ -21,12 +22,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          inter.className,
+          nunito.className,
           'grid min-h-screen grid-rows-[auto_1fr_auto]',
         )}
       >
         <Navbar />
-        <main className="container mx-auto">{children}</main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>
