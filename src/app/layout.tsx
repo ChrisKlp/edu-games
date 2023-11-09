@@ -11,7 +11,9 @@ const nunito = Nunito({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Math Games',
   description: 'Niecodzienna platforma do nauki cyfr dla najmłodszych',
-  icons: [{ rel: 'icon', url: '/favicon.png' }],
+  icons: {
+    icon: '/favicon.png',
+  },
 }
 
 export default function RootLayout({
