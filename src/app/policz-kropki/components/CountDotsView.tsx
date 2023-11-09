@@ -2,8 +2,9 @@
 
 import Button from '@/components/Button'
 import countDotsGame from '@/lib/games/countDots'
-import { useRouter } from 'next/navigation'
 import Dice from './Dice'
+import { useState } from 'react'
+import NoSSRWrapper from '@/components/NoSSRWrapper'
 
 type Props = {
   game?: {
@@ -14,16 +15,17 @@ type Props = {
 }
 
 export default function CountDotsView({}: Props) {
-  const game = countDotsGame()
-  const router = useRouter()
+  const [game, setGame] = useState(countDotsGame())
+
+  console.log(game.dices)
 
   const handleClick = (item: string | number) => {
-    router.refresh()
+    setGame(countDotsGame())
   }
 
   return (
-    <>
-      <div className="container flex flex-wrap justify-center gap-8 pt-10">
+    <NoSSRWrapper>
+      <div className="container flex flex-wrap justify-center gap-8">
         {game.dices.map((dice) => (
           <Dice key={dice} number={dice} />
         ))}
@@ -39,6 +41,6 @@ export default function CountDotsView({}: Props) {
           </Button>
         ))}
       </div>
-    </>
+    </NoSSRWrapper>
   )
 }

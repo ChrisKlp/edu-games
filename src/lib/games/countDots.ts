@@ -1,7 +1,8 @@
+import { Resolver } from 'dns/promises'
 import { getRandomArbitrary, shuffleArray } from '../utils'
 
 export default function countDotsGame() {
-  const dices = []
+  const dices: number[] = []
   const questionNumber = getRandomArbitrary(1, 12)
   const answersSet = new Set<number>()
   answersSet.add(questionNumber)
