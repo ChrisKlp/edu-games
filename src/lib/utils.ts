@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function shuffleArray<T>(array: T[]) {
   return array
-    .map((value, i) => ({ value, sort: Math.floor(Math.random() * (i + 1)) }))
+    .map((value, i) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
 }
