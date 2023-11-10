@@ -26,8 +26,8 @@ export default function CountDotsView({}: Props) {
   return (
     <NoSSRWrapper>
       <div className="container flex flex-wrap justify-center gap-8">
-        {game.dices.map((dice) => (
-          <Dice key={dice} number={dice} />
+        {game.dices.map((dice, i) => (
+          <Dice key={`D${dice}-num${i}`} number={dice} />
         ))}
       </div>
       <div className="container grid grid-cols-2 gap-4">
