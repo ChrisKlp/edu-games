@@ -7,7 +7,7 @@ export default function Home() {
       <p className="container mb-6 text-center text-2xl font-bold text-sky-600">
         Policz kropki
       </p>
-      <div className="grid h-full grid-rows-[1fr_auto] items-start gap-8 bg-slate-100 py-10">
+      <div className="bg-slate-100 py-5">
         <NoSSRWrapper>
           <CountDotsView />
         </NoSSRWrapper>

@@ -8,6 +8,12 @@ const config = {
   MAX_DICES: 3,
 }
 
+export type TCountDotsGame = {
+  questionNumber: number
+  answers: number[]
+  dices: number[]
+}
+
 export default function countDotsGame() {
   let dices: number[] = []
   const questionNumber = getRandomArbitrary(config.MIN, config.MAX)

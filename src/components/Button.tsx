@@ -27,7 +27,7 @@ export default function Button({
 
   const handleAnimationEnd = () => {
     setTimeout(() => {
-      if (isGoodAnswer) handleClick()
+      handleClick()
     }, 500)
   }
   return (

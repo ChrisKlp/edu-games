@@ -25,7 +25,7 @@ export default function Dice({ number }: Props) {
       priority
       src={images[number]}
       alt={`Dice ${number}`}
-      className="max-w-[150px] drop-shadow-2xl"
+      className="max-w-[100px] drop-shadow-2xl sm:max-w-[150px]"
     />
   )
 }
