@@ -1,38 +1,51 @@
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 type Props = {
   children: React.ReactNode
   className?: string
-  isAnswer: boolean
+  isGoodAnswer: boolean
   handleClick: () => void
 } & React.HTMLProps<HTMLButtonElement>
+
+const variants = {
+  jump: { y: [0, -10, 0], backgroundColor: '#84cc16' },
+  wiggle: {
+    rotate: [0, 3, -3, 0],
+    backgroundColor: ['#9f1239', '#9f1239', '#be185d'],
+  },
+}
 
 export default function Button({
   children,
   className,
-  isAnswer,
+  isGoodAnswer,
   handleClick,
 }: Props) {
-  const [effect, setEffect] = useState('')
+  const [effect, setEffect] = useState({})
 
   const handleAnimationEnd = () => {
-    setEffect('')
-    if (isAnswer) handleClick()
+    setTimeout(() => {
+      if (isGoodAnswer) handleClick()
+    }, 500)
   }
   return (
-    <button
+    <motion.button
       className={cn(
-        'rounded-xl bg-pink-700 p-3 text-lg text-white',
+        'w-full rounded-xl  bg-pink-700 p-3 text-lg text-white',
         effect,
         className,
       )}
       onClick={() => {
-        setEffect(isAnswer ? 'animate-jump' : 'animate-wiggle')
+        setEffect(isGoodAnswer ? 'jump' : 'wiggle')
       }}
-      onAnimationEnd={handleAnimationEnd}
+      variants={variants}
+      animate={effect}
+      transition={{ duration: 0.3 }}
+      onAnimationComplete={handleAnimationEnd}
     >
       {children}
-    </button>
+    </motion.button>
   )
 }

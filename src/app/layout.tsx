@@ -26,7 +26,7 @@ export default function RootLayout({
       <body
         className={cn(
           nunito.className,
-          'grid min-h-screen grid-rows-[auto_1fr_auto]',
+          'grid min-h-screen grid-rows-[auto_1fr_auto] antialiased',
         )}
       >
         <Navbar />
