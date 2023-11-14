@@ -2,12 +2,19 @@
 
 import { fetcher, getRandomArbitrary } from '@/lib/utils'
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import useSWR from 'swr'
 import Spinner from './Spinner'
+import { motion } from 'framer-motion'
+
+const variants = {
+  hidden: { opacity: 0, scale: 0.5 },
+  visible: { opacity: 1, scale: 1 },
+}
 
 export default function Pokemon() {
   const id = useRef(getRandomArbitrary(1, 1292))
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const {
     data: pokemonList,
@@ -29,15 +36,21 @@ export default function Pokemon() {
   const { name }: { name: string } = pokemonData
 
   return (
-    <div className="grid gap-4">
+    <motion.div
+      className="grid gap-4"
+      variants={variants}
+      initial="hidden"
+      animate={isLoaded && 'visible'}
+    >
       <Image
         priority
-        width={250}
-        height={250}
+        width={400}
+        height={400}
         src={pokemonData.sprites.other['official-artwork'].front_default}
         alt={name}
+        onLoad={() => setIsLoaded(true)}
       />
       <p className="text-center font-bold">{name.toUpperCase()}</p>
-    </div>
+    </motion.div>
   )
 }

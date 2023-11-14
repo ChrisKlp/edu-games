@@ -1,9 +1,10 @@
 import { create } from 'zustand'
-import countDotsGame, { TCountDotsGame } from './countDotsGame/countDotsGame'
+import countDotsGame, { TCountDotsGame } from './countDotsGame'
 
 type CountDotsStore = {
   game: TCountDotsGame
-  points: number[]
+  points: number
+  round: number
   endGame: boolean
   nextRound: (point: number) => void
   restart: () => void
@@ -15,13 +16,16 @@ export const useCountDotsStore = create<CountDotsStore>((set) => ({
     dices: [],
     questionNumber: 0,
   },
-  points: [],
+  points: 0,
+  round: 1,
   endGame: false,
   nextRound: (point) =>
     set((state) => ({
       game: countDotsGame(),
-      points: [...state.points, point === state.game.questionNumber ? 1 : 0],
-      endGame: state.points.length < 9 ? false : true,
+      points: state.points + (point === state.game.questionNumber ? 1 : 0),
+      round: state.round + 1,
+      endGame: state.round < 9 ? false : true,
     })),
-  restart: () => set({ game: countDotsGame(), points: [], endGame: false }),
+  restart: () =>
+    set({ game: countDotsGame(), points: 0, round: 1, endGame: false }),
 }))

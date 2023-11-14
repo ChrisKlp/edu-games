@@ -1,12 +1,12 @@
 'use client'
 
 import Button from '@/components/Button'
-import { useCountDotsStore } from '@/lib/useCountDotsStore'
+import { useCountDotsStore } from '@/lib/countDotsGame/useCountDotsStore'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import Dice from './Dice'
 import EndGame from './EndGame'
-import PointsBar from './PointsBar'
+import ProgressBar from '../../../components/ProgressBar'
 import NoSSRWrapper from '@/components/NoSSRWrapper'
 
 type Props = {
@@ -33,7 +33,8 @@ const item = {
 }
 
 export default function CountDotsView({}: Props) {
-  const { game, points, restart, nextRound, endGame } = useCountDotsStore()
+  const { game, points, round, restart, nextRound, endGame } =
+    useCountDotsStore()
 
   useEffect(() => {
     restart()
@@ -43,24 +44,25 @@ export default function CountDotsView({}: Props) {
     nextRound(item)
   }
 
+  const progress = round === 1 ? 0 : ((round - 1) / 9) * 100
+
   return (
-    <div className="container grid h-full grid-rows-[auto_1fr_auto] items-start gap-8">
-      <PointsBar points={points} />
+    <div className="container grid h-full grid-rows-[auto_1fr] gap-8">
+      <ProgressBar value={progress} />
       {!endGame ? (
-        <>
+        <div
+          key={round}
+          className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
+        >
           {!!game.dices.length && (
             <motion.div
-              key={points.length}
-              className="align-items-start flex flex-wrap justify-center gap-8"
+              className="flex flex-wrap justify-center gap-8"
               variants={container}
               initial="hidden"
               animate="show"
             >
               {game.dices.map((dice, i) => (
-                <motion.div
-                  key={`${points.length}-dice-${dice}-${i}`}
-                  variants={item}
-                >
+                <motion.div key={`${round}-dice-${dice}-${i}`} variants={item}>
                   <Dice number={dice} />
                 </motion.div>
               ))}
@@ -74,7 +76,7 @@ export default function CountDotsView({}: Props) {
           >
             {game.answers.map((answer, i) => (
               <Button
-                key={`${points.length}-answer-${answer}-${i}`}
+                key={`${round}-answer-${answer}-${i}`}
                 isGoodAnswer={answer === game.questionNumber}
                 handleClick={() => handleClick(answer)}
               >
@@ -82,7 +84,7 @@ export default function CountDotsView({}: Props) {
               </Button>
             ))}
           </motion.div>
-        </>
+        </div>
       ) : (
         <EndGame onClick={restart} points={points} />
       )}
