@@ -1,4 +1,3 @@
-import NoSSRWrapper from '@/components/NoSSRWrapper'
 import CountDotsView from './components/CountDotsView'
 
 export default function Home() {
@@ -8,9 +7,7 @@ export default function Home() {
         Policz kropki
       </p>
       <div className="bg-slate-100 py-5">
-        <NoSSRWrapper>
-          <CountDotsView />
-        </NoSSRWrapper>
+        <CountDotsView />
       </div>
     </section>
   )

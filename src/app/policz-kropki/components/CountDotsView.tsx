@@ -1,12 +1,13 @@
 'use client'
 
 import Button from '@/components/Button'
-import { useCountDotsStore } from '@/lib/countDotsGame/useCountDotsStore'
-import { cn, getArray } from '@/lib/utils'
-import { motion, stagger, useAnimate } from 'framer-motion'
+import { useCountDotsStore } from '@/lib/useCountDotsStore'
+import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import Dice from './Dice'
-import Pokemon from '@/components/Pokemon'
+import EndGame from './EndGame'
+import PointsBar from './PointsBar'
+import NoSSRWrapper from '@/components/NoSSRWrapper'
 
 type Props = {
   game?: {
@@ -16,27 +17,27 @@ type Props = {
   }
 }
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const item = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+}
+
 export default function CountDotsView({}: Props) {
-  const [diceScope, animateDices] = useAnimate()
-  const [buttonScope, animateButtons] = useAnimate()
-  const { game, points, restart, round, nextRound } = useCountDotsStore()
+  const { game, points, restart, nextRound, endGame } = useCountDotsStore()
 
   useEffect(() => {
-    if (diceScope.current) {
-      animateDices(
-        'div',
-        { opacity: 1, scale: 1 },
-        { delay: stagger(0.1), type: 'spring', duration: 0.3 },
-      )
-    }
-    if (buttonScope.current) {
-      animateButtons(
-        'div',
-        { opacity: 1, y: 0 },
-        { delay: stagger(0.1), type: 'spring', duration: 0.3 },
-      )
-    }
-  }, [animateButtons, animateDices, buttonScope, diceScope, game])
+    restart()
+  }, [restart])
 
   const handleClick = (item: number) => {
     nextRound(item)
@@ -44,66 +45,46 @@ export default function CountDotsView({}: Props) {
 
   return (
     <div className="container grid h-full grid-rows-[auto_1fr_auto] items-start gap-8">
-      <div className="flex w-full max-w-md justify-between place-self-center">
-        {getArray(10).map((i) => (
-          <div
-            key={i}
-            className={cn(
-              'h-5 w-5 flex-shrink-0 rounded-full',
-              points[i]
-                ? 'bg-lime-600'
-                : points.length > i
-                ? 'bg-red-800'
-                : 'bg-slate-200',
-            )}
-          />
-        ))}
-      </div>
-      {round < 11 ? (
+      <PointsBar points={points} />
+      {!endGame ? (
         <>
-          <div
-            ref={diceScope}
-            className="align-items-start flex flex-wrap justify-center gap-8"
-          >
-            {game.dices.map((dice, i) => (
-              <motion.div
-                key={Math.random()}
-                initial={{ opacity: 0, scale: 0.75 }}
-              >
-                <Dice number={dice} />
-              </motion.div>
-            ))}
-          </div>
-          <div ref={buttonScope} className="grid grid-cols-2 gap-4">
-            {game.answers.map((answer) => (
-              <motion.div key={Math.random()} initial={{ opacity: 0, y: 5 }}>
-                <Button
-                  isGoodAnswer={answer === game.questionNumber}
-                  handleClick={() => handleClick(answer)}
+          {!!game.dices.length && (
+            <motion.div
+              key={points.length}
+              className="align-items-start flex flex-wrap justify-center gap-8"
+              variants={container}
+              initial="hidden"
+              animate="show"
+            >
+              {game.dices.map((dice, i) => (
+                <motion.div
+                  key={`${points.length}-dice-${dice}-${i}`}
+                  variants={item}
                 >
-                  {answer}
-                </Button>
-              </motion.div>
+                  <Dice number={dice} />
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+          <motion.div
+            className="grid grid-cols-2 gap-4"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            {game.answers.map((answer, i) => (
+              <Button
+                key={`${points.length}-answer-${answer}-${i}`}
+                isGoodAnswer={answer === game.questionNumber}
+                handleClick={() => handleClick(answer)}
+              >
+                {answer}
+              </Button>
             ))}
-          </div>
+          </motion.div>
         </>
       ) : (
-        <div className="grid place-items-center gap-4">
-          <h2 className="mb-8 text-5xl font-bold text-sky-600">Koniec gry</h2>
-          <p className="text-xl font-bold ">Twoje punkty:</p>
-          <p className="text-3xl font-bold text-lime-600">
-            {`${points.filter((i) => Boolean(i)).length}/10`}
-          </p>
-          <button
-            className="rounded-lg bg-pink-700 p-4 px-12 font-bold text-white"
-            onClick={() => {
-              restart()
-            }}
-          >
-            Restart
-          </button>
-          <Pokemon />
-        </div>
+        <EndGame onClick={restart} points={points} />
       )}
     </div>
   )

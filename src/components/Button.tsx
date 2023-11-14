@@ -7,7 +7,7 @@ type Props = {
   className?: string
   isGoodAnswer: boolean
   handleClick: () => void
-} & React.HTMLProps<HTMLButtonElement>
+}
 
 const variants = {
   jump: { y: [0, -10, 0], backgroundColor: '#84cc16' },
@@ -28,7 +28,7 @@ export default function Button({
   const handleAnimationEnd = () => {
     setTimeout(() => {
       handleClick()
-    }, 500)
+    }, 300)
   }
   return (
     <motion.button

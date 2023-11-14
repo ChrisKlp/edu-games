@@ -19,3 +19,5 @@ export function getRandomArbitrary(min: number, max: number) {
 export function getArray(length: number) {
   return Array.from(Array(length).keys())
 }
+
+export const fetcher = (url: string) => fetch(url).then((res) => res.json())

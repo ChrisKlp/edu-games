@@ -1,3 +1,4 @@
+import Pokemon2 from '@/components/Pokemon'
 import Link from 'next/link'
 
 export default function Home() {

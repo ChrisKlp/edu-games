@@ -1,34 +1,43 @@
 'use client'
 
-import getPokemon from '@/lib/getPokemon'
+import { fetcher, getRandomArbitrary } from '@/lib/utils'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
+import useSWR from 'swr'
+import Spinner from './Spinner'
 
 export default function Pokemon() {
-  const [pokemon, setPokemon] = useState<any>(null)
-  const [firstRender, setFirstRender] = useState(false)
+  const id = useRef(getRandomArbitrary(1, 1292))
 
-  const fetchData = async () => {
-    const result = await getPokemon()
-    setPokemon(result)
-  }
+  const {
+    data: pokemonList,
+    error: listError,
+    isLoading: listIsLoading,
+  } = useSWR(
+    `https://pokeapi.co/api/v2/pokemon?offset=${id.current}&limit=1`,
+    fetcher,
+  )
+  const {
+    data: pokemonData,
+    error: dataError,
+    isLoading: dataIsLoading,
+  } = useSWR(pokemonList?.results[0]?.url, fetcher)
 
-  useEffect(() => {
-    setFirstRender(true)
-    if (firstRender) {
-      fetchData()
-    }
-  }, [firstRender])
+  if (listError || dataError) return <div>failed to load</div>
+  if (listIsLoading || dataIsLoading) return <Spinner />
 
-  if (!pokemon) return null
+  const { name }: { name: string } = pokemonData
 
   return (
-    <Image
-      priority
-      width={200}
-      height={200}
-      src={pokemon.sprites.other['official-artwork'].front_default}
-      alt={pokemon.name}
-    />
+    <div className="grid gap-4">
+      <Image
+        priority
+        width={250}
+        height={250}
+        src={pokemonData.sprites.other['official-artwork'].front_default}
+        alt={name}
+      />
+      <p className="text-center font-bold">{name.toUpperCase()}</p>
+    </div>
   )
 }
