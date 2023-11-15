@@ -1,40 +1,21 @@
 'use client'
 
 import Button from '@/components/Button'
-import { useCountDotsStore } from '@/lib/countDotsGame/useCountDotsStore'
+import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import Dice from './Dice'
-import EndGame from './EndGame'
-import ProgressBar from '../../../components/ProgressBar'
-import NoSSRWrapper from '@/components/NoSSRWrapper'
+import EndGame from '../EndGameView'
+import ProgressBar from '../ProgressBar'
+import DicesView from '@/app/policz-kropki/components/DicesView'
+import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
 
 type Props = {
-  game?: {
-    questionNumber: number
-    answers: number[]
-    dices: number[]
-  }
+  variant?: 'numbers' | 'dots'
 }
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-}
-
-export default function CountDotsView({}: Props) {
+export default function AdditionTo12View({ variant = 'dots' }: Props) {
   const { game, points, round, restart, nextRound, endGame } =
-    useCountDotsStore()
+    useAdditionTo12Store()
 
   useEffect(() => {
     restart()
@@ -54,19 +35,10 @@ export default function CountDotsView({}: Props) {
           key={round}
           className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
         >
-          {!!game.dices.length && (
-            <motion.div
-              className="flex flex-wrap justify-center gap-8"
-              variants={container}
-              initial="hidden"
-              animate="show"
-            >
-              {game.dices.map((dice, i) => (
-                <motion.div key={`${round}-dice-${dice}-${i}`} variants={item}>
-                  <Dice number={dice} />
-                </motion.div>
-              ))}
-            </motion.div>
+          {!!game.numbers.length && variant === 'dots' ? (
+            <DicesView numbers={game.numbers} round={round} />
+          ) : (
+            <NumbersView numbers={game.numbers} round={round} />
           )}
           <motion.div
             className="grid grid-cols-2 gap-4"

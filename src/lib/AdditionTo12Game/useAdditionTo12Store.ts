@@ -1,8 +1,8 @@
 import { create } from 'zustand'
-import countDotsGame, { TCountDotsGame } from './countDotsGame'
+import additionTo12Game, { TAdditionTo12Game } from './additionTo12Game'
 
-type CountDotsStore = {
-  game: TCountDotsGame
+type AdditionTo12Store = {
+  game: TAdditionTo12Game
   points: number
   round: number
   endGame: boolean
@@ -10,10 +10,10 @@ type CountDotsStore = {
   restart: () => void
 }
 
-export const useCountDotsStore = create<CountDotsStore>((set) => ({
+export const useAdditionTo12Store = create<AdditionTo12Store>((set) => ({
   game: {
     answers: [],
-    dices: [],
+    numbers: [],
     questionNumber: 0,
   },
   points: 0,
@@ -21,11 +21,11 @@ export const useCountDotsStore = create<CountDotsStore>((set) => ({
   endGame: false,
   nextRound: (point) =>
     set((state) => ({
-      game: countDotsGame(),
+      game: additionTo12Game(),
       points: state.points + (point === state.game.questionNumber ? 1 : 0),
       round: state.round + 1,
       endGame: state.round < 9 ? false : true,
     })),
   restart: () =>
-    set({ game: countDotsGame(), points: 0, round: 1, endGame: false }),
+    set({ game: additionTo12Game(), points: 0, round: 1, endGame: false }),
 }))
