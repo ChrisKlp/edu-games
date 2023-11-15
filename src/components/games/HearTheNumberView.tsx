@@ -1,21 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
-import DicesView from '@/app/policz-kropki/components/DicesView'
-import Button from '@/components/Button'
-import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
+import { useHearTheNumberStore } from '@/lib/HearTheNumberGame/useHearTheNumberStore'
+import useTTS from '@/lib/useTTS'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import EndGame from '../EndGameView'
 import ProgressBar from '../ProgressBar'
+import Button from '../Button'
 
-type Props = {
-  variant?: 'numbers' | 'dots'
-}
-
-export default function AdditionTo12View({ variant = 'dots' }: Props) {
+export default function HearTheNumberView() {
+  const { speak, supported, cancel } = useTTS()
   const { game, points, round, restart, nextRound, endGame } =
-    useAdditionTo12Store()
+    useHearTheNumberStore()
+
+  useEffect(() => {
+    if (supported && game.questionText && !endGame) {
+      setTimeout(() => {
+        speak(game.questionText)
+      }, 300)
+    }
+  }, [supported, round, endGame])
 
   useEffect(() => {
     restart()
@@ -35,13 +40,16 @@ export default function AdditionTo12View({ variant = 'dots' }: Props) {
           key={round}
           className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
         >
-          {!!game.numbers.length && variant === 'dots' ? (
-            <DicesView numbers={game.numbers} round={round} />
-          ) : (
-            <NumbersView numbers={game.numbers} round={round} />
-          )}
+          <motion.button
+            className="text-7xl font-bold uppercase"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={() => speak(game.questionText)}
+          >
+            {game.questionText}
+          </motion.button>
           <motion.div
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-4 gap-4"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}

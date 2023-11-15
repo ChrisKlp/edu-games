@@ -21,6 +21,14 @@ export default function Home() {
             Dodaj cyfry
           </span>
         </Link>
+        <Link
+          href="/rozpoznaj-liczbe"
+          className="block rounded-xl bg-pink-700 p-4"
+        >
+          <span className="block text-center text-xl font-bold text-white">
+            Rozpoznaj liczbę ze słuchu
+          </span>
+        </Link>
       </div>
     </section>
   )

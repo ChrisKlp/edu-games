@@ -13,7 +13,7 @@ export function shuffleArray<T>(array: T[]) {
 }
 
 export function getRandomArbitrary(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min)
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 export function getArray(length: number) {
