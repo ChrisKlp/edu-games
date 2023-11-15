@@ -10,16 +10,13 @@ export default function Home() {
       <div className="grid gap-4">
         <Link
           href="/policz-kropki"
-          className="block rounded-xl bg-pink-700 p-6 py-10"
+          className="block rounded-xl bg-pink-700 p-4"
         >
           <span className="block text-center text-xl font-bold text-white">
             Policz kropki
           </span>
         </Link>
-        <Link
-          href="/dodaj-cyfry"
-          className="block rounded-xl bg-pink-700 p-6 py-10"
-        >
+        <Link href="/dodaj-cyfry" className="block rounded-xl bg-pink-700 p-4">
           <span className="block text-center text-xl font-bold text-white">
             Dodaj cyfry
           </span>

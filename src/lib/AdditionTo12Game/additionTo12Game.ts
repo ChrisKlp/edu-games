@@ -3,8 +3,9 @@ import { getRandomArbitrary, shuffleArray } from '../utils'
 const config = {
   MIN: 1,
   MAX: 12,
-  MAX_IN_DICE: 6,
-  MAX_DICES: 3,
+  MAX_ONE_NUMBER: 6,
+  MAX_NUMBERS: 3,
+  MIN_NUMBERS: 2,
 }
 
 export type TAdditionTo12Game = {
@@ -28,13 +29,17 @@ export default function additionTo12Game() {
   let rest = questionNumber
 
   while (rest > 0) {
-    let randomNum = getRandomArbitrary(config.MIN, config.MAX_IN_DICE)
+    let randomNum = getRandomArbitrary(config.MIN, config.MAX_ONE_NUMBER)
     randomNum = randomNum > rest ? rest : randomNum
     numbers.push(randomNum)
     rest = rest - randomNum
   }
 
-  while (numbers.length > config.MAX_DICES) {
+  if (numbers.length < config.MIN_NUMBERS) {
+    return additionTo12Game()
+  }
+
+  while (numbers.length > config.MAX_NUMBERS) {
     const sortedArray = numbers.sort()
     const firstElement = sortedArray.shift()
 
