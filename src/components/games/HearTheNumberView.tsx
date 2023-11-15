@@ -10,7 +10,7 @@ import ProgressBar from '../ProgressBar'
 import Button from '../Button'
 
 export default function HearTheNumberView() {
-  const { speak, supported, cancel } = useTTS()
+  const { speak, supported } = useTTS()
   const { game, points, round, restart, nextRound, endGame } =
     useHearTheNumberStore()
 
@@ -41,7 +41,7 @@ export default function HearTheNumberView() {
           className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
         >
           <motion.button
-            className="text-7xl font-bold uppercase"
+            className="break-all text-7xl font-bold uppercase"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             onClick={() => speak(game.questionText)}
