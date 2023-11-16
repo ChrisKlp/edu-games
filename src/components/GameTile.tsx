@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { IconType } from 'react-icons'
+import SpeakButton from './SpeakButton'
 
 type Props = {
   link: string
@@ -11,16 +12,17 @@ type Props = {
 
 export default function GameTile({ link, title, Icon, className }: Props) {
   return (
-    <Link
-      href={link}
-      className={cn('block rounded-xl bg-pink-700 p-4', className)}
-    >
-      <span className="grid justify-items-center gap-4 text-white">
+    <div className={cn('relative rounded-xl bg-pink-700', className)}>
+      <Link
+        href={link}
+        className="grid justify-items-center gap-4 p-4 text-white"
+      >
         <span>
           <Icon className="h-auto w-20" />
         </span>
         <span className="text-center text-xl font-bold">{title}</span>
-      </span>
-    </Link>
+      </Link>
+      <SpeakButton className="absolute right-2 top-2" text={title} />
+    </div>
   )
 }
