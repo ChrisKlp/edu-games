@@ -1,4 +1,5 @@
 import AdditionTo12View from '@/components/games/AdditionTo12View'
+import { Level } from '@/types'
 
 export default function AddNumbersPage() {
   return (
@@ -7,7 +8,7 @@ export default function AddNumbersPage() {
         Dodaj cyfry
       </p>
       <div className="bg-slate-100 py-5">
-        <AdditionTo12View variant="numbers" />
+        <AdditionTo12View variant="numbers" level={Level.easy} />
       </div>
     </section>
   )

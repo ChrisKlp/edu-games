@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import { useHearTheNumberStore } from '@/lib/HearTheNumberGame/useHearTheNumberStore'
+import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
 import useTTS from '@/lib/useTTS'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
@@ -11,7 +11,7 @@ import GameLayout from '../GameLayout'
 export default function HearTheNumberView() {
   const { speak, supported } = useTTS()
   const { game, points, round, restart, nextRound, endGame } =
-    useHearTheNumberStore()
+    useListenTheNumberStore()
 
   useEffect(() => {
     if (supported && game.questionText && !endGame) {

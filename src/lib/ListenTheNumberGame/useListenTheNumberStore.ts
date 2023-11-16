@@ -1,8 +1,10 @@
 import { create } from 'zustand'
-import hearTheNumberGame, { THearTheNumberGame } from './hearTheNumberGame'
+import listenTheNumberGame, {
+  TListenTheNumberGame,
+} from './listenTheNumberGame'
 
-type HearTheNumberStore = {
-  game: THearTheNumberGame
+type ListenTheNumberStore = {
+  game: TListenTheNumberGame
   points: number
   round: number
   endGame: boolean
@@ -10,7 +12,7 @@ type HearTheNumberStore = {
   restart: () => void
 }
 
-export const useHearTheNumberStore = create<HearTheNumberStore>((set) => ({
+export const useListenTheNumberStore = create<ListenTheNumberStore>((set) => ({
   game: {
     answers: [],
     questionText: '',
@@ -21,11 +23,11 @@ export const useHearTheNumberStore = create<HearTheNumberStore>((set) => ({
   endGame: false,
   nextRound: (point) =>
     set((state) => ({
-      game: hearTheNumberGame(),
+      game: listenTheNumberGame(),
       points: state.points + (point === state.game.questionNumber ? 1 : 0),
       round: state.round + 1,
       endGame: state.round < 9 ? false : true,
     })),
   restart: () =>
-    set({ game: hearTheNumberGame(), points: 0, round: 1, endGame: false }),
+    set({ game: listenTheNumberGame(), points: 0, round: 1, endGame: false }),
 }))

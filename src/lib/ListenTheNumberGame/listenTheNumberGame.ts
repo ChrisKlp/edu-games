@@ -21,13 +21,13 @@ enum Numbers {
   'dwanaście',
 }
 
-export type THearTheNumberGame = {
+export type TListenTheNumberGame = {
   questionNumber: number
   questionText: string
   answers: number[]
 }
 
-export default function hearTheNumberGame() {
+export default function listenTheNumberGame() {
   const questionNumber = getRandomArbitrary(config.MIN, config.MAX)
   const questionText = Numbers[questionNumber]
   const answersSet = new Set<number>()

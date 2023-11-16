@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
 import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
@@ -7,18 +8,25 @@ import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Stor
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import GameLayout from '../GameLayout'
+import { Level } from '@/types'
+import { useShallow } from 'zustand/react/shallow'
 
 type Props = {
   variant?: 'numbers' | 'dots'
+  level?: Level
 }
 
-export default function AdditionTo12View({ variant = 'dots' }: Props) {
-  const { game, points, round, restart, nextRound, endGame } =
+export default function AdditionTo12View({
+  variant = 'dots',
+  level = Level.normal,
+}: Props) {
+  const { game, points, round, restart, nextRound, endGame, setLevel } =
     useAdditionTo12Store()
 
   useEffect(() => {
+    setLevel(level)
     restart()
-  }, [restart])
+  }, [])
 
   const handleClick = (item: number) => {
     nextRound(item)

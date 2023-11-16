@@ -1,11 +1,21 @@
+import { Level } from '@/types'
 import { getRandomArbitrary, shuffleArray } from '../utils'
 
-const config = {
-  MIN: 1,
-  MAX: 12,
-  MAX_ONE_NUMBER: 6,
-  MAX_NUMBERS: 3,
-  MIN_NUMBERS: 2,
+const configs = {
+  easy: {
+    MIN: 1,
+    MAX: 10,
+    MAX_ONE_NUMBER: 5,
+    MAX_NUMBERS: 2,
+    MIN_NUMBERS: 2,
+  },
+  normal: {
+    MIN: 1,
+    MAX: 12,
+    MAX_ONE_NUMBER: 6,
+    MAX_NUMBERS: 3,
+    MIN_NUMBERS: 2,
+  },
 }
 
 export type TAdditionTo12Game = {
@@ -14,7 +24,8 @@ export type TAdditionTo12Game = {
   numbers: number[]
 }
 
-export default function additionTo12Game() {
+export default function additionTo12Game(level: Level = Level.normal) {
+  const config = configs[level]
   let numbers: number[] = []
   const questionNumber = getRandomArbitrary(config.MIN, config.MAX)
   const answersSet = new Set<number>()
@@ -36,7 +47,7 @@ export default function additionTo12Game() {
   }
 
   if (numbers.length < config.MIN_NUMBERS) {
-    return additionTo12Game()
+    return additionTo12Game(level)
   }
 
   while (numbers.length > config.MAX_NUMBERS) {
