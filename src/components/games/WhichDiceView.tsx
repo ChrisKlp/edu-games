@@ -1,25 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
-import DicesView from '@/app/policz-kropki/components/DicesView'
-import Button from '@/components/Button'
-import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
+import Dice from '@/app/policz-kropki/components/Dice'
+import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
 import { Level } from '@/types'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import GameLayout from '../GameLayout'
-import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
+import TalkingTitle from '../TalkingTitle'
 
 type Props = {
-  variant?: 'numbers' | 'dots'
   level?: Level
 }
 
-export default function WhichDiceView({
-  variant = 'dots',
-  level = Level.normal,
-}: Props) {
+export default function WhichDiceView({ level = Level.normal }: Props) {
   const { game, points, round, restart, nextRound, endGame, setLevel } =
     useWhichDiceStore()
 
@@ -34,41 +28,39 @@ export default function WhichDiceView({
 
   console.log(game)
 
-  const progress = round === 1 ? 0 : ((round - 1) / 9) * 100
-
   return (
     <GameLayout
       endGame={endGame}
       points={points}
-      progress={progress}
+      round={round}
       restart={restart}
     >
-      {/* <div
+      <div
         key={round}
         className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
       >
-        {!!game.numbers.length && variant === 'dots' ? (
-          <DicesView numbers={game.numbers} round={round} />
-        ) : (
-          <NumbersView numbers={game.numbers} round={round} />
-        )}
+        <TalkingTitle text={game.questionText} />
         <motion.div
-          className="grid grid-cols-2 gap-4"
+          className="grid grid-cols-3 gap-4 pb-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          {game.answers.map((answer, i) => (
-            <Button
-              key={`${round}-answer-${answer}-${i}`}
-              isGoodAnswer={answer === game.questionNumber}
-              handleClick={() => handleClick(answer)}
-            >
-              {answer}
-            </Button>
+          {game.answers.map(({ id, answer, numbers }) => (
+            <button key={id} onClick={() => handleClick(answer)}>
+              <span className="flex flex-col items-center justify-center gap-1 md:flex-row">
+                {numbers.map((num, ind) => (
+                  <Dice
+                    number={num}
+                    key={`${id}-${num}-${ind}`}
+                    className="max-w-[75px] drop-shadow-xl sm:max-w-[75px] md:max-w-[90px]"
+                  />
+                ))}
+              </span>
+            </button>
           ))}
         </motion.div>
-      </div> */}
+      </div>
     </GameLayout>
   )
 }

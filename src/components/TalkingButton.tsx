@@ -9,7 +9,7 @@ type Props = {
   className?: string
 }
 
-export default function SpeakButton({ text, className }: Props) {
+export default function TalkingButton({ text, className }: Props) {
   const { speak } = useTTS()
   return (
     <button

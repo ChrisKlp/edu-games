@@ -22,7 +22,6 @@ export enum Numbers {
 export type MathGameConfig = {
   MIN: number
   MAX: number
-  MIN_ANSWER_NUMBER: number
   MAX_ONE_NUMBER: number
   MAX_NUMBERS: number
   MIN_NUMBERS: number

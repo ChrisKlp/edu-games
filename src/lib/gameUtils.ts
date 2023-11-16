@@ -4,13 +4,14 @@ import { getRandomArbitrary, shuffleArray } from './utils'
 export function generateNumAnswers(
   questionNumber: number,
   length: number,
-  config: MathGameConfig,
+  min: number,
+  max: number,
 ) {
   const answersSet = new Set<number>()
   answersSet.add(questionNumber)
 
-  while (answersSet.size < length - 1) {
-    answersSet.add(getRandomArbitrary(config.MIN_ANSWER_NUMBER, config.MAX))
+  while (answersSet.size < length) {
+    answersSet.add(getRandomArbitrary(min, max))
   }
 
   return answersSet
@@ -30,7 +31,8 @@ export function splitNumberToArr(num: number, config: MathGameConfig) {
     if (
       config.MIN_NUMBERS > 1 &&
       resultArr.length === 0 &&
-      randomNum === rest
+      randomNum === rest &&
+      rest > 1
     ) {
       continue
     }

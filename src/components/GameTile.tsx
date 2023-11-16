@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { IconType } from 'react-icons'
-import SpeakButton from './SpeakButton'
+import TalkingButton from './TalkingButton'
 
 type Props = {
   link: string
@@ -22,7 +22,7 @@ export default function GameTile({ link, title, Icon, className }: Props) {
         </span>
         <span className="text-center text-xl font-bold">{title}</span>
       </Link>
-      <SpeakButton className="absolute right-2 top-2" text={title} />
+      <TalkingButton className="absolute right-2 top-2" text={title} />
     </div>
   )
 }

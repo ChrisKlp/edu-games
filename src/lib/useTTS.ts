@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 export default function useTTS(language: string = 'pl-PL') {
   const [supported, setSupported] = useState(false)
@@ -22,16 +22,19 @@ export default function useTTS(language: string = 'pl-PL') {
     }
   }, [])
 
-  const speak = (text: string) => {
-    if (!supported) return
-    setSpeaking(true)
-    const utterance = new window.SpeechSynthesisUtterance()
-    utterance.text = text
-    utterance.lang = language
-    utterance.pitch = 0.85
-    utterance.onend = handleEnd
-    window.speechSynthesis.speak(utterance)
-  }
+  const speak = useCallback(
+    (text: string) => {
+      if (!supported) return
+      setSpeaking(true)
+      const utterance = new window.SpeechSynthesisUtterance()
+      utterance.text = text
+      utterance.lang = language
+      utterance.pitch = 0.85
+      utterance.onend = handleEnd
+      window.speechSynthesis.speak(utterance)
+    },
+    [language, supported],
+  )
 
   return {
     supported,

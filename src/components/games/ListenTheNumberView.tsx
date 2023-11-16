@@ -2,24 +2,15 @@
 'use client'
 
 import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
-import useTTS from '@/lib/useTTS'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import Button from '../Button'
 import GameLayout from '../GameLayout'
+import TalkingTitle from '../TalkingTitle'
 
 export default function HearTheNumberView() {
-  const { speak, supported } = useTTS()
   const { game, points, round, restart, nextRound, endGame } =
     useListenTheNumberStore()
-
-  useEffect(() => {
-    if (supported && game.questionText && !endGame) {
-      setTimeout(() => {
-        speak(game.questionText)
-      }, 300)
-    }
-  }, [supported, round, endGame])
 
   useEffect(() => {
     restart()
@@ -29,27 +20,18 @@ export default function HearTheNumberView() {
     nextRound(item)
   }
 
-  const progress = round === 1 ? 0 : ((round - 1) / 9) * 100
-
   return (
     <GameLayout
       endGame={endGame}
       points={points}
-      progress={progress}
+      round={round}
       restart={restart}
     >
       <div
         key={round}
         className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
       >
-        <motion.button
-          className="break-all text-7xl font-bold uppercase"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          onClick={() => speak(game.questionText)}
-        >
-          {game.questionText}
-        </motion.button>
+        <TalkingTitle text={game.questionText} />
         <motion.div
           className="grid grid-cols-4 gap-4"
           initial={{ opacity: 0, y: -20 }}

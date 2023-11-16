@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode
   endGame: boolean
   points: number
-  progress: number
+  round: number
   restart: () => void
 }
 
@@ -13,9 +13,10 @@ export default function GameLayout({
   children,
   endGame,
   points,
-  progress,
+  round,
   restart,
 }: Props) {
+  const progress = round === 1 ? 0 : ((round - 1) / 9) * 100
   return (
     <div className="container grid h-full grid-rows-[auto_1fr] gap-8">
       <ProgressBar value={progress} />

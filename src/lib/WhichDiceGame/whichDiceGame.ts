@@ -7,7 +7,6 @@ const configs = {
   easy: {
     MIN: 1,
     MAX: 10,
-    MIN_ANSWER_NUMBER: 2,
     MAX_ONE_NUMBER: 5,
     MAX_NUMBERS: 2,
     MIN_NUMBERS: 2,
@@ -15,7 +14,6 @@ const configs = {
   normal: {
     MIN: 1,
     MAX: 12,
-    MIN_ANSWER_NUMBER: 2,
     MAX_ONE_NUMBER: 6,
     MAX_NUMBERS: 2,
     MIN_NUMBERS: 2,
@@ -37,7 +35,12 @@ export default function whichDiceGame(level: Level = Level.normal) {
   const questionNumber = getRandomArbitrary(config.MIN + 1, config.MAX)
   const questionText = Numbers[questionNumber]
 
-  const answersSet = generateNumAnswers(questionNumber, 4, config)
+  const answersSet = generateNumAnswers(
+    questionNumber,
+    3,
+    config.MIN + 1,
+    config.MAX,
+  )
 
   const answers = shuffleArray(Array.from(answersSet)).map((answer) => ({
     id: nanoid(10),

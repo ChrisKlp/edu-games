@@ -31,13 +31,11 @@ export default function AdditionTo12View({
     nextRound(item)
   }
 
-  const progress = round === 1 ? 0 : ((round - 1) / 9) * 100
-
   return (
     <GameLayout
       endGame={endGame}
       points={points}
-      progress={progress}
+      round={round}
       restart={restart}
     >
       <div

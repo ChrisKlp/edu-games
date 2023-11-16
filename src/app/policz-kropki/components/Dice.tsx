@@ -4,6 +4,7 @@ import dice3 from '@/assets/dice/dice-3.svg'
 import dice4 from '@/assets/dice/dice-4.svg'
 import dice5 from '@/assets/dice/dice-5.svg'
 import dice6 from '@/assets/dice/dice-6.svg'
+import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
 const images: { [key: number]: any } = {
@@ -17,15 +18,19 @@ const images: { [key: number]: any } = {
 
 type Props = {
   number: number
+  className?: string
 }
 
-export default function Dice({ number }: Props) {
+export default function Dice({ number, className }: Props) {
   return (
     <Image
       priority
       src={images[number]}
       alt={`Dice ${number}`}
-      className="max-w-[125px] drop-shadow-2xl sm:max-w-[150px]"
+      className={cn(
+        'max-w-[125px] drop-shadow-2xl sm:max-w-[150px]',
+        className,
+      )}
     />
   )
 }
