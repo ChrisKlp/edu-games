@@ -10,7 +10,7 @@ export function generateNumAnswers(
   answersSet.add(questionNumber)
 
   while (answersSet.size < length - 1) {
-    answersSet.add(getRandomArbitrary(config.MIN, config.MAX))
+    answersSet.add(getRandomArbitrary(config.MIN_ANSWER_NUMBER, config.MAX))
   }
 
   return answersSet
@@ -26,12 +26,11 @@ export function splitNumberToArr(num: number, config: MathGameConfig) {
       rest > config.MAX_ONE_NUMBER ? config.MAX_ONE_NUMBER : rest
 
     let randomNum = getRandomArbitrary(config.MIN, maxNumber)
-    console.log(maxNumber, randomNum)
 
     if (
       config.MIN_NUMBERS > 1 &&
-      randomNum === rest &&
-      resultArr.length === 0
+      resultArr.length === 0 &&
+      randomNum === rest
     ) {
       continue
     }
