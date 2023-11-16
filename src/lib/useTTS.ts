@@ -28,6 +28,7 @@ export default function useTTS(language: string = 'pl-PL') {
     const utterance = new window.SpeechSynthesisUtterance()
     utterance.text = text
     utterance.lang = language
+    utterance.pitch = 0.85
     utterance.onend = handleEnd
     window.speechSynthesis.speak(utterance)
   }
