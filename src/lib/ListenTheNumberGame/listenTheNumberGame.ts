@@ -1,24 +1,9 @@
+import { Numbers } from '@/types'
 import { getRandomArbitrary, shuffleArray } from '../utils'
 
 const config = {
   MIN: 0,
   MAX: 12,
-}
-
-enum Numbers {
-  'zero',
-  'jeden',
-  'dwa',
-  'trzy',
-  'cztery',
-  'pięć',
-  'sześć',
-  'siedem',
-  'osiem',
-  'dziewięć',
-  'dziesięć',
-  'jedenaście',
-  'dwanaście',
 }
 
 export type TListenTheNumberGame = {

@@ -1,6 +1,5 @@
 import GameTile from '@/components/GameTile'
-import { LuDices } from 'react-icons/lu'
-import { TbMathXPlusY, TbSpeakerphone } from 'react-icons/tb'
+import gameList from '@/components/games/gameList'
 
 export default function Home() {
   return (
@@ -9,24 +8,15 @@ export default function Home() {
         Wybierz grę:
       </p>
       <div className="grid grid-cols-2 gap-4">
-        <GameTile
-          link="/policz-kropki"
-          title="Policz kropki"
-          Icon={LuDices}
-          className="bg-lime-600"
-        />
-        <GameTile
-          link="/dodaj-cyfry"
-          title="Dodaj cyfry"
-          Icon={TbMathXPlusY}
-          className="bg-sky-600"
-        />
-        <GameTile
-          link="/rozpoznaj-liczbe"
-          title="Rozpoznaj liczbę ze słuchu"
-          Icon={TbSpeakerphone}
-          className="bg-pink-600"
-        />
+        {gameList.map(({ id, slug, title, icon, bgColor }) => (
+          <GameTile
+            key={id}
+            link={slug}
+            title={title}
+            Icon={icon}
+            className={`${bgColor}`}
+          />
+        ))}
       </div>
     </section>
   )

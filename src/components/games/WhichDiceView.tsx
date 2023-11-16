@@ -9,18 +9,19 @@ import { Level } from '@/types'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import GameLayout from '../GameLayout'
+import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
 
 type Props = {
   variant?: 'numbers' | 'dots'
   level?: Level
 }
 
-export default function AdditionTo12View({
+export default function WhichDiceView({
   variant = 'dots',
   level = Level.normal,
 }: Props) {
   const { game, points, round, restart, nextRound, endGame, setLevel } =
-    useAdditionTo12Store()
+    useWhichDiceStore()
 
   useEffect(() => {
     setLevel(level)
@@ -31,6 +32,8 @@ export default function AdditionTo12View({
     nextRound(item)
   }
 
+  console.log(game)
+
   const progress = round === 1 ? 0 : ((round - 1) / 9) * 100
 
   return (
@@ -40,7 +43,7 @@ export default function AdditionTo12View({
       progress={progress}
       restart={restart}
     >
-      <div
+      {/* <div
         key={round}
         className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
       >
@@ -65,7 +68,7 @@ export default function AdditionTo12View({
             </Button>
           ))}
         </motion.div>
-      </div>
+      </div> */}
     </GameLayout>
   )
 }
