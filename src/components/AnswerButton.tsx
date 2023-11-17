@@ -19,12 +19,14 @@ export default function Button({
 }: Props) {
   const [effect, setEffect] = useState({})
 
-  const variants = {
-    jump: { y: [0, -10, 0], backgroundColor: type === 'text' ? '#84cc16' : '' },
-    wiggle: {
-      rotate: [0, 3, -3, 0],
-      backgroundColor: type === 'text' ? ['#9f1239', '#9f1239', '#be185d'] : '',
-    },
+  const variants: any = {
+    jump: { y: [0, -10, 0] },
+    wiggle: { rotate: [0, 3, -3, 0] },
+  }
+
+  if (type === 'text') {
+    variants.jump.backgroundColor = '#84cc16'
+    variants.wiggle.backgroundColor = ['#9f1239', '#9f1239', '#be185d']
   }
 
   const handleAnimationEnd = () => {
@@ -36,7 +38,7 @@ export default function Button({
   return (
     <motion.button
       className={cn(
-        'w-full',
+        'flex w-full justify-center',
         type === 'text' && 'rounded-xl  bg-pink-700 p-3 text-lg text-white',
         effect,
         className,

@@ -1,5 +1,6 @@
 import { Numbers } from '@/types'
 import { getRandomArbitrary, shuffleArray } from '../utils'
+import { generateNumAnswers } from '../gameUtils'
 
 const config = {
   MIN: 0,
@@ -15,13 +16,13 @@ export type TListenTheNumberGame = {
 export default function listenTheNumberGame() {
   const questionNumber = getRandomArbitrary(config.MIN, config.MAX)
   const questionText = Numbers[questionNumber]
-  const answersSet = new Set<number>()
-  answersSet.add(questionNumber)
 
-  while (answersSet.size < 8) {
-    answersSet.add(getRandomArbitrary(config.MIN, config.MAX))
-  }
-
+  const answersSet = generateNumAnswers(
+    questionNumber,
+    8,
+    config.MIN,
+    config.MAX,
+  )
   const answers = shuffleArray(Array.from(answersSet))
 
   return {

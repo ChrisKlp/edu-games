@@ -9,10 +9,15 @@ import { useEffect } from 'react'
 type Props = {
   text: string
   className?: string
+  language?: string
 }
 
-export default function TalkingTitle({ text, className }: Props) {
-  const { speak, supported } = useTTS()
+export default function TalkingTitle({
+  text,
+  className,
+  language = 'pl-PL',
+}: Props) {
+  const { speak, supported } = useTTS(language)
 
   useEffect(() => {
     if (supported && text) {

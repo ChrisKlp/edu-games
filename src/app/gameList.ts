@@ -1,8 +1,7 @@
-// 51f4c4e4-b2e4-494e-a344-938d4d665ebe
-
 import { LuDices } from 'react-icons/lu'
 import { TbMathXPlusY, TbSpeakerphone } from 'react-icons/tb'
 import { GiDominoTiles } from 'react-icons/gi'
+import { FiSun } from 'react-icons/fi'
 
 const gameList = [
   {
@@ -32,6 +31,14 @@ const gameList = [
     slug: '/wskaz-kostki',
     icon: GiDominoTiles,
     bgColor: 'bg-purple-600',
+  },
+  {
+    id: '51f4c4e4-b2e4-494e-a344-938d4d665ebe',
+    title: 'Yellow',
+    slug: '/english/yellow',
+    icon: FiSun,
+    bgColor: 'bg-yellow-500',
+    language: 'en-US',
   },
 ]
 

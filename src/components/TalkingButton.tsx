@@ -7,10 +7,11 @@ import { PiSpeakerLowBold } from 'react-icons/pi'
 type Props = {
   text: string
   className?: string
+  language?: string
 }
 
-export default function TalkingButton({ text, className }: Props) {
-  const { speak } = useTTS()
+export default function TalkingButton({ text, className, language }: Props) {
+  const { speak } = useTTS(language)
   return (
     <button
       className={cn(
