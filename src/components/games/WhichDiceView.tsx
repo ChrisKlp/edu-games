@@ -9,18 +9,24 @@ import { useEffect } from 'react'
 import GameLayout from '../GameLayout'
 import TalkingTitle from '../TalkingTitle'
 import AnswerButton from '../AnswerButton'
+import { useGameSessionStore } from '@/lib/useGameSessionStore'
 
 type Props = {
   level?: Level
 }
 
 export default function WhichDiceView({ level = Level.normal }: Props) {
-  const { game, points, round, restart, nextRound, endGame, setLevel } =
-    useWhichDiceStore()
+  const { game, points, restart, nextRound, setLevel } = useWhichDiceStore()
+  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+
+  function restartGame() {
+    restart()
+    resetSession()
+  }
 
   useEffect(() => {
     setLevel(level)
-    restart()
+    restartGame()
   }, [])
 
   const handleClick = (item: number) => {
@@ -32,7 +38,7 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
       endGame={endGame}
       points={points}
       round={round}
-      restart={restart}
+      restart={restartGame}
     >
       <div
         key={round}

@@ -7,17 +7,24 @@ import { useEffect } from 'react'
 import Button from '../AnswerButton'
 import GameLayout from '../GameLayout'
 import TalkingTitle from '../TalkingTitle'
+import { useGameSessionStore } from '@/lib/useGameSessionStore'
 
 export default function HearTheNumberView() {
-  const { game, points, round, restart, nextRound, endGame } =
-    useListenTheNumberStore()
+  const { game, points, restart, nextRound } = useListenTheNumberStore()
+  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+
+  function restartGame() {
+    restart()
+    resetSession()
+  }
 
   useEffect(() => {
-    restart()
+    restartGame()
   }, [restart])
 
   const handleClick = (item: number) => {
     nextRound(item)
+    nextGameRound()
   }
 
   return (
@@ -25,7 +32,7 @@ export default function HearTheNumberView() {
       endGame={endGame}
       points={points}
       round={round}
-      restart={restart}
+      restart={restartGame}
     >
       <div
         key={round}

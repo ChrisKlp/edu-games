@@ -9,7 +9,6 @@ export type TEnglishQuiz = {
 }
 
 export default function englishQuiz(quizData: string[]) {
-  console.log(quizData)
   const questionNumber = getRandomArbitrary(0, quizData.length - 1)
   const questionText = quizData[questionNumber]
 

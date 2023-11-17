@@ -21,8 +21,6 @@ export default function EnglishQuizView({ color = 'yellow' }: Props) {
   const { game, points, nextRound, restart, loadData } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
 
-  console.log(points, round)
-
   function restartGame() {
     restart()
     resetSession()

@@ -9,6 +9,7 @@ import { Level } from '@/types'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import GameLayout from '../GameLayout'
+import { useGameSessionStore } from '@/lib/useGameSessionStore'
 
 type Props = {
   variant?: 'numbers' | 'dots'
@@ -19,16 +20,22 @@ export default function AdditionTo12View({
   variant = 'dots',
   level = Level.normal,
 }: Props) {
-  const { game, points, round, restart, nextRound, endGame, setLevel } =
-    useAdditionTo12Store()
+  const { game, points, restart, nextRound, setLevel } = useAdditionTo12Store()
+  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+
+  function restartGame() {
+    restart()
+    resetSession()
+  }
 
   useEffect(() => {
     setLevel(level)
-    restart()
+    restartGame()
   }, [])
 
   const handleClick = (item: number) => {
     nextRound(item)
+    nextGameRound()
   }
 
   return (
@@ -36,7 +43,7 @@ export default function AdditionTo12View({
       endGame={endGame}
       points={points}
       round={round}
-      restart={restart}
+      restart={restartGame}
     >
       <div
         key={round}
