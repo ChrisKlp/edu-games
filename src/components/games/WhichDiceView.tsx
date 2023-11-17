@@ -31,6 +31,7 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
 
   const handleClick = (item: number) => {
     nextRound(item)
+    nextGameRound()
   }
 
   return (
