@@ -4,7 +4,7 @@
 import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import Button from '../Button'
+import Button from '../AnswerButton'
 import GameLayout from '../GameLayout'
 import TalkingTitle from '../TalkingTitle'
 

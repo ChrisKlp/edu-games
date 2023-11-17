@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import GameLayout from '../GameLayout'
 import TalkingTitle from '../TalkingTitle'
+import AnswerButton from '../AnswerButton'
 
 type Props = {
   level?: Level
@@ -25,8 +26,6 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
   const handleClick = (item: number) => {
     nextRound(item)
   }
-
-  console.log(game)
 
   return (
     <GameLayout
@@ -47,7 +46,12 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
           transition={{ delay: 0.4 }}
         >
           {game.answers.map(({ id, answer, numbers }) => (
-            <button key={id} onClick={() => handleClick(answer)}>
+            <AnswerButton
+              key={id}
+              type="image"
+              isGoodAnswer={answer === game.questionNumber}
+              handleClick={() => handleClick(answer)}
+            >
               <span className="flex flex-col items-center justify-center gap-1 md:flex-row">
                 {numbers.map((num, ind) => (
                   <Dice
@@ -57,7 +61,7 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
                   />
                 ))}
               </span>
-            </button>
+            </AnswerButton>
           ))}
         </motion.div>
       </div>

@@ -3,7 +3,7 @@
 
 import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
 import DicesView from '@/app/policz-kropki/components/DicesView'
-import Button from '@/components/Button'
+import Button from '@/components/AnswerButton'
 import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
 import { Level } from '@/types'
 import { motion } from 'framer-motion'
