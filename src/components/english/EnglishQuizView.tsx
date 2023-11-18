@@ -1,17 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import Dice from '@/app/policz-kropki/components/Dice'
-import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
-import { Level } from '@/types'
+import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
+import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
+import AnswerButton from '../AnswerButton'
+import FadeInImage from '../FadeInImage'
 import GameLayout from '../GameLayout'
 import TalkingTitle from '../TalkingTitle'
-import AnswerButton from '../AnswerButton'
-import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
-import FadeInImage from '../FadeInImage'
-import { useGameSessionStore } from '@/lib/useGameSessionStore'
 
 type Props = {
   color: string

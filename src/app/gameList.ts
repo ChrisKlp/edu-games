@@ -3,7 +3,7 @@ import { TbMathXPlusY, TbSpeakerphone } from 'react-icons/tb'
 import { GiDominoTiles } from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
 
-const gameList = [
+export const gameList = [
   {
     id: '6f5650aa-a0fa-4124-8c54-c01ab42b7222',
     title: 'Policz kropki',
@@ -32,6 +32,9 @@ const gameList = [
     icon: GiDominoTiles,
     bgColor: 'bg-purple-600',
   },
+]
+
+export const englishQuizzes = [
   {
     id: '51f4c4e4-b2e4-494e-a344-938d4d665ebe',
     title: 'Yellow',
@@ -41,5 +44,3 @@ const gameList = [
     language: 'en-US',
   },
 ]
-
-export default gameList

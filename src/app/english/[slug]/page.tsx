@@ -1,4 +1,4 @@
-import EnglishQuizView from '@/components/games/EnglishQuizView'
+import EnglishQuizView from '@/components/english/EnglishQuizView'
 import { notFound } from 'next/navigation'
 
 type Props = { params: { slug: string } }

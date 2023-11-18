@@ -17,10 +17,11 @@ export default function TalkingTitle({
   className,
   language = 'pl-PL',
 }: Props) {
-  const { speak, supported } = useTTS(language)
+  const { speak, supported, cancel } = useTTS(language)
 
   useEffect(() => {
     if (supported && text) {
+      cancel()
       setTimeout(() => {
         speak(text)
       }, 300)
@@ -29,7 +30,10 @@ export default function TalkingTitle({
 
   return (
     <motion.button
-      className={cn('break-all text-7xl font-bold uppercase', className)}
+      className={cn(
+        'justify-self-center break-all p-4 text-7xl font-bold uppercase',
+        className,
+      )}
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       onClick={() => speak(text)}

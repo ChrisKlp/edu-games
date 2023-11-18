@@ -1,14 +1,28 @@
+import { englishQuizzes, gameList } from '@/app/gameList'
 import GameTile from '@/components/GameTile'
-import gameList from '@/app/gameList'
 
 export default function Home() {
   return (
-    <section className="container pt-5">
-      <p className="mb-6 text-center text-2xl font-bold text-sky-600">
-        Wybierz quiz:
+    <section className="container grid gap-6 pt-5">
+      <p className="text-center text-2xl font-bold text-sky-600">
+        Zadania z matmy:
       </p>
       <div className="grid grid-cols-2 gap-4">
-        {gameList.map(({ id, slug, title, icon, bgColor, language }) => (
+        {gameList.map(({ id, slug, title, icon, bgColor }) => (
+          <GameTile
+            key={id}
+            link={slug}
+            title={title}
+            Icon={icon}
+            className={`${bgColor}`}
+          />
+        ))}
+      </div>
+      <p className="text-center text-2xl font-bold text-sky-600">
+        English quizzes:
+      </p>
+      <div className="grid grid-cols-2 gap-4">
+        {englishQuizzes.map(({ id, slug, title, icon, bgColor, language }) => (
           <GameTile
             key={id}
             link={slug}
