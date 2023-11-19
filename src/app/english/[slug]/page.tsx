@@ -1,14 +1,13 @@
-import EnglishQuizView from '@/components/english/EnglishQuizView'
+import EnglishQuizView from '@/components/games/EnglishQuizView'
 import { notFound } from 'next/navigation'
+import data from '@/lib/EnglishQuiz/data'
 
 type Props = { params: { slug: string } }
-
-const validColors = ['yellow']
 
 export default function EnglishColorPage({ params }: Props) {
   const color = params.slug
 
-  if (!validColors.includes(color)) {
+  if (!Object.keys(data).includes(color)) {
     notFound()
   }
 

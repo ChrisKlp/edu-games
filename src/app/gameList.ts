@@ -2,6 +2,9 @@ import { LuDices } from 'react-icons/lu'
 import { TbMathXPlusY, TbSpeakerphone } from 'react-icons/tb'
 import { GiDominoTiles } from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
+import { PiOrangeSlice } from 'react-icons/pi'
+import { FaRegHeart } from 'react-icons/fa6'
+import { IoWaterOutline } from 'react-icons/io5'
 
 export const gameList = [
   {
@@ -41,6 +44,30 @@ export const englishQuizzes = [
     slug: '/english/yellow',
     icon: FiSun,
     bgColor: 'bg-yellow-500',
+    language: 'en-US',
+  },
+  {
+    id: 'Efm1OaOk3opmYNZe4YVlImK4fEpoU7DRyBRsRqLrOkc=',
+    title: 'Orange',
+    slug: '/english/orange',
+    icon: PiOrangeSlice,
+    bgColor: 'bg-orange-500',
+    language: 'en-US',
+  },
+  {
+    id: 'WMUkgx9gyiC8nHLHvri3Xv6L5Bwrcn/algX+0s4tfj8=',
+    title: 'Red',
+    slug: '/english/red',
+    icon: FaRegHeart,
+    bgColor: 'bg-red-500',
+    language: 'en-US',
+  },
+  {
+    id: 'GWfJJELpGFY1/d8xs9ZSwkU/+kbtJNfp1H0d97yi51M=',
+    title: 'Blue',
+    slug: '/english/blue',
+    icon: IoWaterOutline,
+    bgColor: 'bg-blue-500',
     language: 'en-US',
   },
 ]

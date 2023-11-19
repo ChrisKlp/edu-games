@@ -38,7 +38,7 @@ export default function TalkingTitle({
       animate={{ opacity: 1, scale: 1 }}
       onClick={() => speak(text)}
     >
-      {text}
+      {text.replace('_', ' ')}
     </motion.button>
   )
 }

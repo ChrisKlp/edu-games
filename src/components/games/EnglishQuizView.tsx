@@ -59,7 +59,7 @@ export default function EnglishQuizView({ color = 'yellow' }: Props) {
               handleClick={() => handleClick(answer)}
             >
               <FadeInImage
-                src={`/english/yellow/${answer}.jpg`}
+                src={`/english/${color}/${answer}.jpg`}
                 alt={answer}
                 width={150}
                 height={150}
