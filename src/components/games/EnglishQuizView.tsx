@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function EnglishQuizView({ color = 'yellow' }: Props) {
-  const { game, points, nextRound, restart, loadData } = useEnglishQuizStore()
+  const { game, points, nextRound, restart, setColor } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
 
   function restartGame() {
@@ -24,7 +24,7 @@ export default function EnglishQuizView({ color = 'yellow' }: Props) {
   }
 
   useEffect(() => {
-    loadData(color)
+    setColor(color)
     restartGame()
   }, [])
 

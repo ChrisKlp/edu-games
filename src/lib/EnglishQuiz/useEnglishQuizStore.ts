@@ -6,7 +6,7 @@ type EnglishQuizStore = {
   game: TEnglishQuiz
   points: number
   color: string
-  loadData: (color: string) => void
+  setColor: (color: string) => void
   nextRound: (name: string) => void
   restart: () => void
 }
@@ -20,14 +20,7 @@ export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
   },
   points: 0,
   color: 'yellow',
-  loadData: (color) =>
-    set((state) => ({
-      color,
-      game: {
-        ...state.game,
-        data: data[color],
-      },
-    })),
+  setColor: (color) => set({ color }),
   nextRound: (name) => {
     const quizData = get().game.data
     const updatedData = quizData.filter((item) => item !== name)
@@ -37,7 +30,8 @@ export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
     }))
   },
   restart: () => {
-    const quizData = get().game.data
+    const color = get().color
+    const quizData = data[color]
     return set({
       game: englishQuiz(quizData),
       points: 0,
