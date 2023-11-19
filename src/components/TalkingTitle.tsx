@@ -33,7 +33,7 @@ export default function TalkingTitle({
   return (
     <motion.button
       className={cn(
-        'justify-self-center break-all text-[clamp(48px,20vw,96px)] font-bold uppercase leading-[90%]',
+        'justify-self-center break-all text-[clamp(48px,15vw,96px)] font-bold uppercase leading-[90%]',
         className,
       )}
       initial={{ opacity: 0, scale: 0.5 }}
