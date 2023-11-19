@@ -10,7 +10,7 @@ type Props = {
   handleClick: () => void
 }
 
-export default function Button({
+export default function AnswerButton({
   children,
   className,
   isGoodAnswer,
@@ -38,7 +38,7 @@ export default function Button({
   return (
     <motion.button
       className={cn(
-        'flex w-full justify-center',
+        'flex w-full justify-center justify-self-center',
         type === 'text' && 'rounded-xl  bg-pink-700 p-3 text-lg text-white',
         effect,
         className,

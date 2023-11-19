@@ -19,11 +19,13 @@ export default function TalkingTitle({
 }: Props) {
   const { speak, supported, cancel } = useTTS(language)
 
+  const textToSpeech = text.replace('_', ' ')
+
   useEffect(() => {
-    if (supported && text) {
+    if (supported && textToSpeech) {
       cancel()
       setTimeout(() => {
-        speak(text)
+        speak(textToSpeech)
       }, 300)
     }
   }, [supported])
@@ -31,14 +33,14 @@ export default function TalkingTitle({
   return (
     <motion.button
       className={cn(
-        'justify-self-center break-all p-4 text-7xl font-bold uppercase',
+        'justify-self-center break-all text-[clamp(48px,20vw,96px)] font-bold uppercase leading-[90%]',
         className,
       )}
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
-      onClick={() => speak(text)}
+      onClick={() => speak(textToSpeech)}
     >
-      {text.replace('_', ' ')}
+      {textToSpeech}
     </motion.button>
   )
 }

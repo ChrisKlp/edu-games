@@ -4,7 +4,7 @@
 import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import Button from '../AnswerButton'
+import AnswerButton from '../AnswerButton'
 import GameLayout from '../GameLayout'
 import TalkingTitle from '../TalkingTitle'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
@@ -36,23 +36,24 @@ export default function HearTheNumberView() {
     >
       <div
         key={round}
-        className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
+        className="grid h-full grid-rows-[1fr_auto] items-center gap-8 "
       >
         <TalkingTitle text={game.questionText} />
         <motion.div
-          className="grid grid-cols-4 gap-4"
+          className="grid w-full max-w-screen-lg grid-cols-4 gap-4
+          justify-self-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
           {game.answers.map((answer, i) => (
-            <Button
+            <AnswerButton
               key={`${round}-answer-${answer}-${i}`}
               isGoodAnswer={answer === game.questionNumber}
               handleClick={() => handleClick(answer)}
             >
               {answer}
-            </Button>
+            </AnswerButton>
           ))}
         </motion.div>
       </div>

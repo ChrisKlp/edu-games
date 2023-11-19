@@ -3,7 +3,7 @@
 
 import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
 import DicesView from '@/app/policz-kropki/components/DicesView'
-import Button from '@/components/AnswerButton'
+import AnswerButton from '@/components/AnswerButton'
 import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
 import { Level } from '@/types'
 import { motion } from 'framer-motion'
@@ -47,7 +47,7 @@ export default function AdditionTo12View({
     >
       <div
         key={round}
-        className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
+        className="grid h-full grid-rows-[1fr_auto] items-center gap-8 "
       >
         {!!game.numbers.length && variant === 'dots' ? (
           <DicesView numbers={game.numbers} round={round} />
@@ -55,19 +55,19 @@ export default function AdditionTo12View({
           <NumbersView numbers={game.numbers} round={round} />
         )}
         <motion.div
-          className="grid grid-cols-2 gap-4"
+          className="grid w-full max-w-screen-lg grid-cols-2 gap-4 justify-self-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
           {game.answers.map((answer, i) => (
-            <Button
+            <AnswerButton
               key={`${round}-answer-${answer}-${i}`}
               isGoodAnswer={answer === game.questionNumber}
               handleClick={() => handleClick(answer)}
             >
               {answer}
-            </Button>
+            </AnswerButton>
           ))}
         </motion.div>
       </div>

@@ -47,7 +47,8 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
       >
         <TalkingTitle text={game.questionText} />
         <motion.div
-          className="grid grid-cols-3 gap-4 pb-6"
+          className="grid w-full max-w-screen-lg grid-cols-3 gap-4 justify-self-center
+          pb-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
