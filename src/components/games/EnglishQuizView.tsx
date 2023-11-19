@@ -25,7 +25,6 @@ export default function EnglishQuizView({ color = 'yellow' }: Props) {
 
   useEffect(() => {
     loadData(color)
-
     restartGame()
   }, [])
 
