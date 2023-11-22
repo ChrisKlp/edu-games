@@ -1,6 +1,6 @@
 'use client'
 
-import { baseUrl, fetcher, getRandomArbitrary } from '@/lib/utils'
+import { fetcher, getRandomArbitrary } from '@/lib/utils'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
@@ -18,7 +18,7 @@ export default function Pokemon() {
   const [isLoaded, setIsLoaded] = useState(false)
 
   const { data, error, isLoading } = useSWR<{ name: string; image: string }>(
-    `${baseUrl}/api/pokemon?randomId=${randomId.current}`,
+    `/api/pokemon?randomId=${randomId.current}`,
     fetcher,
     {
       revalidateOnFocus: false,

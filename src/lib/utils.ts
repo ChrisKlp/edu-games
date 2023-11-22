@@ -4,12 +4,6 @@ import { twMerge } from 'tailwind-merge'
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-
-export const baseUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : process.env.VERCEL_URL
-
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 export const getErrorMessage = (error: unknown) => {
