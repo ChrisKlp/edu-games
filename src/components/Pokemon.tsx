@@ -1,11 +1,11 @@
 'use client'
 
-import { fetcher, getRandomArbitrary } from '@/lib/utils'
+import { baseUrl, fetcher, getRandomArbitrary } from '@/lib/utils'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import useSWR from 'swr'
 import Spinner from './Spinner'
-import { motion } from 'framer-motion'
 
 const variants = {
   hidden: { opacity: 0, scale: 0.5 },
@@ -13,29 +13,21 @@ const variants = {
 }
 
 export default function Pokemon() {
-  const id = useRef(getRandomArbitrary(1, 1292))
+  const randomId = useRef(getRandomArbitrary(1, 1292))
+
   const [isLoaded, setIsLoaded] = useState(false)
 
-  const {
-    data: pokemonList,
-    error: listError,
-    isLoading: listIsLoading,
-  } = useSWR(
-    `https://pokeapi.co/api/v2/pokemon?offset=${id.current}&limit=1`,
+  const { data, error, isLoading } = useSWR<{ name: string; image: string }>(
+    `${baseUrl}/api/pokemon?randomId=${randomId.current}`,
     fetcher,
+    {
+      revalidateOnFocus: false,
+    },
   )
-  const {
-    data: pokemonData,
-    error: dataError,
-    isLoading: dataIsLoading,
-  } = useSWR(pokemonList?.results[0]?.url, fetcher)
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <Spinner />
 
-  if (listError || dataError) return <div>failed to load</div>
-  if (listIsLoading || dataIsLoading) return <Spinner />
-
-  const { name }: { name: string } = pokemonData
-
-  return (
+  return data ? (
     <motion.div
       className="grid gap-4"
       variants={variants}
@@ -46,11 +38,11 @@ export default function Pokemon() {
         priority
         width={400}
         height={400}
-        src={pokemonData.sprites.other['official-artwork'].front_default}
-        alt={name}
+        src={data.image}
+        alt={data.name}
         onLoad={() => setIsLoaded(true)}
       />
-      <p className="text-center font-bold">{name.toUpperCase()}</p>
+      <p className="text-center font-bold">{data.name.toUpperCase()}</p>
     </motion.div>
-  )
+  ) : null
 }

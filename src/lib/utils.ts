@@ -5,7 +5,28 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export const baseUrl =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : process.env.VERCEL_URL
+
 export const fetcher = (url: string) => fetch(url).then((res) => res.json())
+
+export const getErrorMessage = (error: unknown) => {
+  let message: string
+
+  if (error instanceof Error) {
+    message = error.message
+  } else if (error && typeof error === 'object' && 'message' in error) {
+    message = String(error.message)
+  } else if (typeof error === 'string') {
+    message = error
+  } else {
+    message = 'Something went wrong'
+  }
+
+  return message
+}
 
 export function shuffleArray<T>(array: T[]) {
   return array
