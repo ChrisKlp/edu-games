@@ -24,7 +24,7 @@ export default function Pokemon() {
       revalidateOnFocus: false,
     },
   )
-  if (error) return <div>failed to load</div>
+  if (error) return <div>Problem z ładowaniem 🙄</div>
   if (isLoading) return <Spinner />
 
   return data ? (
