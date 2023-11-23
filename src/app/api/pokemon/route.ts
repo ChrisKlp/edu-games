@@ -3,7 +3,7 @@ import { uploadImage } from '@/lib/ftp/uploadImage'
 import { getServerSession } from 'next-auth'
 import { NextRequest } from 'next/server'
 import { Readable } from 'stream'
-import { authOptions } from '../auth/[...nextauth]/route'
+import { authOptions } from '../auth/[...nextauth]/options'
 
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions)

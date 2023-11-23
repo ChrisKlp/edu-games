@@ -1,13 +1,13 @@
 import { cn } from '@/lib/utils'
 import Logo from './Logo'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { TbLogout2 } from 'react-icons/tb'
 import AvatarButton from './AvatarButton'
 import { FaUserAlt } from 'react-icons/fa'
 import { CgPokemon } from 'react-icons/cg'
 import Link from 'next/link'
 import SignOutButton from './auth/SignOutButton'
+import { authOptions } from '@/app/api/auth/[...nextauth]/options'
 
 type Props = {
   className?: string
