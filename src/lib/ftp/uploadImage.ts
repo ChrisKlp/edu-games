@@ -13,7 +13,6 @@ export async function uploadImage(img: Readable, name: string) {
       port: Number(process.env.FTP_PORT),
     })
     await client.cd(process.env.FTP_PATH as string)
-    console.log(await client.pwd())
     await client.uploadFrom(img, name)
   } catch (err) {
     throw new Error(getErrorMessage(err))

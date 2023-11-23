@@ -19,21 +19,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode
+  modal: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body
         className={cn(
           nunito.className,
-          'grid min-h-screen grid-rows-[auto_1fr_auto] antialiased',
+          'grid min-h-screen grid-rows-[auto_1fr_auto]  antialiased',
         )}
       >
         <SessionProvider>
           <Navbar />
           <main>{children}</main>
           <Footer />
+          {modal}
         </SessionProvider>
       </body>
     </html>
