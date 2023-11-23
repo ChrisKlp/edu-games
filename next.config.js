@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: process.env.IMAGES_HOSTNAME,
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
 }

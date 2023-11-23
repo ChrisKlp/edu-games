@@ -1,9 +1,10 @@
+import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter, Nunito } from 'next/font/google'
-import './globals.css'
-import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
-import { cn } from '@/lib/utils'
+import Navbar from '../components/Navbar'
+import SessionProvider from './SessionProvider'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 const nunito = Nunito({ subsets: ['latin'] })
@@ -29,9 +30,11 @@ export default function RootLayout({
           'grid min-h-screen grid-rows-[auto_1fr_auto] antialiased',
         )}
       >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <SessionProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   )
