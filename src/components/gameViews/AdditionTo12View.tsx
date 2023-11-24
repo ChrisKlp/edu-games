@@ -2,14 +2,14 @@
 'use client'
 
 import AnswerButton from '@/components/game/AnswerButton'
-import GameLayout from '@/components/game/GameLayout'
 import DicesView from '@/components/game/DicesView'
+import GameLayout from '@/components/game/GameLayout'
 import NumbersView from '@/components/game/NumbersView'
 import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
+import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Level } from '@/types'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
 
 type Props = {
   variant?: 'numbers' | 'dots'
@@ -22,21 +22,13 @@ export default function AdditionTo12View({
 }: Props) {
   const { game, points, restart, nextRound, setLevel } = useAdditionTo12Store()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
-
-  function restartGame() {
-    restart()
-    resetSession()
-  }
-
-  useEffect(() => {
-    setLevel(level)
-    restartGame()
-  }, [])
-
-  const handleClick = (item: number) => {
-    nextRound(item)
-    nextGameRound()
-  }
+  const { handleClick, restartGame } = useGameController({
+    init: () => setLevel(level),
+    restart,
+    resetSession,
+    nextGameRound,
+    nextRound,
+  })
 
   return (
     <GameLayout

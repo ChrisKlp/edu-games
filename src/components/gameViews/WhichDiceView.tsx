@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import AnswerButton from '@/components/game/AnswerButton'
-import GameLayout from '@/components/game/GameLayout'
 import TalkingTitle from '@/components/TalkingTitle'
+import AnswerButton from '@/components/game/AnswerButton'
 import Dice from '@/components/game/Dice'
+import GameLayout from '@/components/game/GameLayout'
 import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
+import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Level } from '@/types'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
 
 type Props = {
   level?: Level
@@ -18,21 +18,13 @@ type Props = {
 export default function WhichDiceView({ level = Level.normal }: Props) {
   const { game, points, restart, nextRound, setLevel } = useWhichDiceStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
-
-  function restartGame() {
-    restart()
-    resetSession()
-  }
-
-  useEffect(() => {
-    setLevel(level)
-    restartGame()
-  }, [])
-
-  const handleClick = (item: number) => {
-    nextRound(item)
-    nextGameRound()
-  }
+  const { handleClick, restartGame } = useGameController({
+    init: () => setLevel(level),
+    restart,
+    resetSession,
+    nextGameRound,
+    nextRound,
+  })
 
   return (
     <GameLayout

@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils'
-import { useRef, useState } from 'react'
 
 type Props = {
   value: number

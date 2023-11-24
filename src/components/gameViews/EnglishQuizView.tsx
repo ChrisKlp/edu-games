@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import AnswerButton from '@/components/game/AnswerButton'
 import FadeInImage from '@/components/FadeInImage'
-import GameLayout from '@/components/game/GameLayout'
 import TalkingTitle from '@/components/TalkingTitle'
+import AnswerButton from '@/components/game/AnswerButton'
+import GameLayout from '@/components/game/GameLayout'
 import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
+import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
 
 type Props = {
   color: string
@@ -17,21 +17,13 @@ type Props = {
 export default function EnglishQuizView({ color = 'yellow' }: Props) {
   const { game, points, nextRound, restart, setColor } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
-
-  function restartGame() {
-    restart()
-    resetSession()
-  }
-
-  useEffect(() => {
-    setColor(color)
-    restartGame()
-  }, [])
-
-  const handleClick = (name: string) => {
-    nextRound(name)
-    nextGameRound()
-  }
+  const { handleClick, restartGame } = useGameController({
+    init: () => setColor(color),
+    restart,
+    resetSession,
+    nextGameRound,
+    nextRound,
+  })
 
   return (
     <GameLayout

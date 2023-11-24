@@ -5,27 +5,19 @@ import AnswerButton from '@/components/game/AnswerButton'
 import GameLayout from '@/components/game/GameLayout'
 import TalkingTitle from '@/components/TalkingTitle'
 import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
+import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react'
 
 export default function HearTheNumberView() {
   const { game, points, restart, nextRound } = useListenTheNumberStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
-
-  function restartGame() {
-    restart()
-    resetSession()
-  }
-
-  useEffect(() => {
-    restartGame()
-  }, [restart])
-
-  const handleClick = (item: number) => {
-    nextRound(item)
-    nextGameRound()
-  }
+  const { handleClick, restartGame } = useGameController({
+    restart,
+    resetSession,
+    nextGameRound,
+    nextRound,
+  })
 
   return (
     <GameLayout
