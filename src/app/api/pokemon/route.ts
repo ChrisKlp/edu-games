@@ -6,6 +6,9 @@ import { Readable } from 'stream'
 import { authOptions } from '../auth/[...nextauth]/authOptions'
 
 async function pushPokemon(userId: string, pokemonId: string) {
+  console.log('Here we are')
+  console.log('userId', userId)
+  console.log('pokemonId', pokemonId)
   await prisma.user.update({
     where: {
       id: userId,
