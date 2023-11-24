@@ -3,7 +3,7 @@ import { uploadImage } from '@/lib/ftp/uploadImage'
 import { getServerSession } from 'next-auth'
 import { NextRequest } from 'next/server'
 import { Readable } from 'stream'
-import { authOptions } from '../../../lib/authOptions'
+import { authOptions } from '../auth/[...nextauth]/authOptions'
 
 async function pushPokemon(userId: string, pokemonId: string) {
   await prisma.user.update({
@@ -23,6 +23,10 @@ async function pushPokemon(userId: string, pokemonId: string) {
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions)
   const userId = session?.user.id
+
+  console.log('userid', userId)
+  console.log('userid', userId)
+  console.log('userid', userId)
 
   const searchParams = request.nextUrl.searchParams
   const randomId = searchParams.get('randomId')
