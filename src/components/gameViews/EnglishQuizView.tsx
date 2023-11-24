@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import AnswerButton from '@/components/AnswerButton'
+import AnswerButton from '@/components/game/AnswerButton'
 import FadeInImage from '@/components/FadeInImage'
-import GameLayout from '@/components/GameLayout'
+import GameLayout from '@/components/game/GameLayout'
 import TalkingTitle from '@/components/TalkingTitle'
 import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'

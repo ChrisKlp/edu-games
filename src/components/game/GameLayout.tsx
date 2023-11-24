@@ -1,5 +1,5 @@
 import EndGame from './EndGameView'
-import ProgressBar from './ProgressBar'
+import ProgressBar from '../ProgressBar'
 
 type Props = {
   children: React.ReactNode

@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import AnswerButton from '@/components/AnswerButton'
-import GameLayout from '@/components/GameLayout'
+import AnswerButton from '@/components/game/AnswerButton'
+import GameLayout from '@/components/game/GameLayout'
 import DicesView from '@/components/game/DicesView'
 import NumbersView from '@/components/game/NumbersView'
 import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'

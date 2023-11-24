@@ -10,14 +10,11 @@ type Props = {
   language?: string
 }
 
-export default function TalkingButton({ text, className, language }: Props) {
+export default function SpeakerButton({ text, className, language }: Props) {
   const { speak } = useTTS(language)
   return (
     <button
-      className={cn(
-        'grid h-10 w-10 place-items-center rounded-lg border-2 border-white bg-pink-100 text-pink-800',
-        className,
-      )}
+      className={cn('btn btn-circle btn-sm h-10 w-10 p-0', className)}
       aria-label={text}
       onClick={() => speak(text)}
     >

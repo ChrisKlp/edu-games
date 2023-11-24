@@ -25,7 +25,11 @@ export default function AnswerButton({
   }
 
   if (type === 'text') {
-    variants.jump.backgroundColor = '#84cc16'
+    variants.jump = {
+      ...variants.jump,
+      backgroundColor: '#84cc16',
+      borderColor: '#84cc16',
+    }
     variants.wiggle.backgroundColor = ['#9f1239', '#9f1239', '#be185d']
   }
 
@@ -39,7 +43,7 @@ export default function AnswerButton({
     <motion.button
       className={cn(
         'flex w-full justify-center justify-self-center',
-        type === 'text' && 'rounded-xl  bg-pink-700 p-3 text-lg text-white',
+        type === 'text' && 'btn btn-primary text-lg',
         effect,
         className,
       )}

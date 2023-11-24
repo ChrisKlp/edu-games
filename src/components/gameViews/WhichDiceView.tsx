@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import AnswerButton from '@/components/AnswerButton'
-import GameLayout from '@/components/GameLayout'
+import AnswerButton from '@/components/game/AnswerButton'
+import GameLayout from '@/components/game/GameLayout'
 import TalkingTitle from '@/components/TalkingTitle'
 import Dice from '@/components/game/Dice'
 import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'

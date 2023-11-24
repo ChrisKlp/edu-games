@@ -21,18 +21,18 @@ export default async function Navbar({ className }: Props) {
       <div className="container flex justify-between pb-5 pt-3">
         <Logo />
         {session && session.user ? (
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end h-[40px]">
             <AvatarButton tabIndex={0} session={session} />
             <ul
               tabIndex={0}
-              className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+              className="menu dropdown-content menu-lg z-[1] w-52 rounded-box bg-base-100 p-2 shadow md:menu-md"
             >
-              <li className="rounded-lg hover:bg-slate-100">
+              <li>
                 <a href="">
                   <CgPokemon /> Kolekcja
                 </a>
               </li>
-              <li className="rounded-lg hover:bg-slate-100">
+              <li>
                 <SignOutButton>
                   <TbLogout2 /> Wyloguj się
                 </SignOutButton>
