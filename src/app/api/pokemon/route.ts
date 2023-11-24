@@ -5,31 +5,9 @@ import { NextRequest } from 'next/server'
 import { Readable } from 'stream'
 import { authOptions } from '../auth/[...nextauth]/authOptions'
 
-async function pushPokemon(userId: string, pokemonId: string) {
-  console.log('Here we are')
-  console.log('userId', userId)
-  console.log('pokemonId', pokemonId)
-  await prisma.user.update({
-    where: {
-      id: userId,
-    },
-    data: {
-      collection: {
-        connect: {
-          id: pokemonId,
-        },
-      },
-    },
-  })
-}
-
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions)
   const userId = session?.user.id
-
-  console.log('userid', userId)
-  console.log('userid', userId)
-  console.log('userid', userId)
 
   const searchParams = request.nextUrl.searchParams
   const randomId = searchParams.get('randomId')
@@ -86,35 +64,61 @@ export async function GET(request: NextRequest) {
 
     await uploadImage(imgReadable, `${name}.png`)
 
-    const newPokemon = await prisma.pokemon.create({
-      data: {
-        name: name,
-        image: `${process.env.IMAGES_URL}/${name}.png`,
-      },
-    })
-
-    if (userId) {
-      pushPokemon(userId, newPokemon.id)
-    }
-
-    pokemon.name = newPokemon.name
-    pokemon.image = newPokemon.image
-  } else {
-    if (userId) {
-      const userWithPokemon = await prisma.user.findFirst({
-        where: {
-          id: userId,
-          collection: {
-            some: {
-              id: duplicatedPokemon.id,
-            },
-          },
+    await prisma.$transaction(async (tx) => {
+      const newPokemon = await tx.pokemon.create({
+        data: {
+          name: name,
+          image: `${process.env.IMAGES_URL}/${name}.png`,
         },
       })
 
-      if (!userWithPokemon) {
-        pushPokemon(userId, duplicatedPokemon.id)
+      if (userId) {
+        await tx.user.update({
+          where: {
+            id: userId,
+          },
+          data: {
+            collection: {
+              connect: {
+                id: newPokemon.id,
+              },
+            },
+          },
+        })
       }
+
+      pokemon.name = newPokemon.name
+      pokemon.image = newPokemon.image
+    })
+  } else {
+    if (userId) {
+      await prisma.$transaction(async (tx) => {
+        const userWithPokemon = await tx.user.findFirst({
+          where: {
+            id: userId,
+            collection: {
+              some: {
+                id: duplicatedPokemon.id,
+              },
+            },
+          },
+        })
+
+        if (!userWithPokemon) {
+          await tx.user.update({
+            where: {
+              id: userId,
+            },
+            data: {
+              collection: {
+                connect: {
+                  id: duplicatedPokemon.id,
+                },
+              },
+            },
+          })
+        }
+      })
     }
     pokemon.name = duplicatedPokemon.name
     pokemon.image = duplicatedPokemon.image
