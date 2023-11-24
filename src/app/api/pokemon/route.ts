@@ -3,12 +3,26 @@ import { uploadImage } from '@/lib/ftp/uploadImage'
 import { getServerSession } from 'next-auth'
 import { NextRequest } from 'next/server'
 import { Readable } from 'stream'
-import { authOptions } from '../auth/[...nextauth]/options'
+import { authOptions } from '../../../lib/authOptions'
+
+async function pushPokemon(userId: string, pokemonId: string) {
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      collection: {
+        connect: {
+          id: pokemonId,
+        },
+      },
+    },
+  })
+}
 
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions)
-
-  console.log('userId', session?.user.id)
+  const userId = session?.user.id
 
   const searchParams = request.nextUrl.searchParams
   const randomId = searchParams.get('randomId')
@@ -29,7 +43,7 @@ export async function GET(request: NextRequest) {
   const itemName = listJson.results[0]?.name as string
   const itemUrl = listJson.results[0]?.url as string
 
-  const duplicate = await prisma.pokemon.findFirst({
+  const duplicatedPokemon = await prisma.pokemon.findFirst({
     where: {
       name: itemName,
     },
@@ -40,7 +54,7 @@ export async function GET(request: NextRequest) {
     image: '',
   }
 
-  if (!duplicate) {
+  if (!duplicatedPokemon) {
     const itemResponse = await fetch(itemUrl)
 
     if (!itemResponse.ok) {
@@ -72,11 +86,31 @@ export async function GET(request: NextRequest) {
       },
     })
 
+    if (userId) {
+      pushPokemon(userId, newPokemon.id)
+    }
+
     pokemon.name = newPokemon.name
     pokemon.image = newPokemon.image
   } else {
-    pokemon.name = duplicate.name
-    pokemon.image = duplicate.image
+    if (userId) {
+      const userWithPokemon = await prisma.user.findFirst({
+        where: {
+          id: userId,
+          collection: {
+            some: {
+              id: duplicatedPokemon.id,
+            },
+          },
+        },
+      })
+
+      if (!userWithPokemon) {
+        pushPokemon(userId, duplicatedPokemon.id)
+      }
+    }
+    pokemon.name = duplicatedPokemon.name
+    pokemon.image = duplicatedPokemon.image
   }
 
   return Response.json(pokemon)

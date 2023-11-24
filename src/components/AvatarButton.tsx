@@ -2,14 +2,17 @@
 
 import { Session } from 'next-auth'
 import Image from 'next/image'
-import { HTMLAttributes } from 'react'
+import { ForwardedRef, forwardRef } from 'react'
 
 type Props = {
   session: Session
   tabIndex?: number
 }
 
-export default function AvatarButton({ session, tabIndex }: Props) {
+function AvatarButton(
+  { session, tabIndex }: Props,
+  ref: ForwardedRef<HTMLButtonElement>,
+) {
   const {
     user: { name, image, email },
   } = session
@@ -24,7 +27,7 @@ export default function AvatarButton({ session, tabIndex }: Props) {
   }
 
   return (
-    <button tabIndex={tabIndex} className="avatar placeholder">
+    <button ref={ref} tabIndex={tabIndex} className="avatar placeholder">
       <div className="w-10 rounded-full bg-neutral-content">
         {image ? (
           <Image src={image} width={50} height={50} alt="avatar" />
@@ -35,3 +38,5 @@ export default function AvatarButton({ session, tabIndex }: Props) {
     </button>
   )
 }
+
+export default forwardRef(AvatarButton)

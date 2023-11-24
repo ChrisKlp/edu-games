@@ -27,7 +27,6 @@ const config: Config = {
           primary: colors.pink[700],
         },
       },
-      'light',
     ],
   },
 }

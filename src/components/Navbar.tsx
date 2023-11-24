@@ -1,13 +1,10 @@
+import { authOptions } from '@/lib/authOptions'
 import { cn } from '@/lib/utils'
-import Logo from './Logo'
 import { getServerSession } from 'next-auth'
-import { TbLogout2 } from 'react-icons/tb'
-import AvatarButton from './AvatarButton'
-import { FaUserAlt } from 'react-icons/fa'
-import { CgPokemon } from 'react-icons/cg'
 import Link from 'next/link'
-import SignOutButton from './auth/SignOutButton'
-import { authOptions } from '@/app/api/auth/[...nextauth]/options'
+import { FaUserAlt } from 'react-icons/fa'
+import Logo from './Logo'
+import UserMenu from './UserMenu'
 
 type Props = {
   className?: string
@@ -21,24 +18,7 @@ export default async function Navbar({ className }: Props) {
       <div className="container flex justify-between pb-5 pt-3">
         <Logo />
         {session && session.user ? (
-          <div className="dropdown dropdown-end h-[40px]">
-            <AvatarButton tabIndex={0} session={session} />
-            <ul
-              tabIndex={0}
-              className="menu dropdown-content menu-lg z-[1] w-52 rounded-box bg-base-100 p-2 shadow md:menu-md"
-            >
-              <li>
-                <a href="">
-                  <CgPokemon /> Kolekcja
-                </a>
-              </li>
-              <li>
-                <SignOutButton>
-                  <TbLogout2 /> Wyloguj się
-                </SignOutButton>
-              </li>
-            </ul>
-          </div>
+          <UserMenu session={session} />
         ) : (
           <Link href="/signin">
             <div className="avatar placeholder">
