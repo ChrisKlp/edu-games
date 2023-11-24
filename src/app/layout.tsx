@@ -1,9 +1,9 @@
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
+import SessionProvider from '@/components/auth/SessionProvider'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter, Nunito } from 'next/font/google'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
-import SessionProvider from './SessionProvider'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })

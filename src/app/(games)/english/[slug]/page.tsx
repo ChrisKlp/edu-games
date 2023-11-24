@@ -1,4 +1,4 @@
-import EnglishQuizView from '@/components/games/EnglishQuizView'
+import EnglishQuizView from '@/components/gameViews/EnglishQuizView'
 import { notFound } from 'next/navigation'
 import data from '@/lib/EnglishQuiz/data'
 

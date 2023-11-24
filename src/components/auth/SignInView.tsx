@@ -1,7 +1,7 @@
-import { getProviders } from 'next-auth/react'
-import SignInButton from './SignInButton'
-import { TbLogin2 } from 'react-icons/tb'
 import { cn } from '@/lib/utils'
+import { getProviders } from 'next-auth/react'
+import { TbLogin2 } from 'react-icons/tb'
+import SignInButton from './SignInButton'
 
 type Props = {
   className?: string

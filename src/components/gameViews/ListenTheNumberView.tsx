@@ -1,26 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import NumbersView from '@/app/dodaj-cyfry/components/NumbersView'
-import DicesView from '@/app/policz-kropki/components/DicesView'
 import AnswerButton from '@/components/AnswerButton'
-import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Store'
-import { Level } from '@/types'
+import GameLayout from '@/components/GameLayout'
+import TalkingTitle from '@/components/TalkingTitle'
+import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
+import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import GameLayout from '../GameLayout'
-import { useGameSessionStore } from '@/lib/useGameSessionStore'
 
-type Props = {
-  variant?: 'numbers' | 'dots'
-  level?: Level
-}
-
-export default function AdditionTo12View({
-  variant = 'dots',
-  level = Level.normal,
-}: Props) {
-  const { game, points, restart, nextRound, setLevel } = useAdditionTo12Store()
+export default function HearTheNumberView() {
+  const { game, points, restart, nextRound } = useListenTheNumberStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
 
   function restartGame() {
@@ -29,9 +19,8 @@ export default function AdditionTo12View({
   }
 
   useEffect(() => {
-    setLevel(level)
     restartGame()
-  }, [])
+  }, [restart])
 
   const handleClick = (item: number) => {
     nextRound(item)
@@ -49,13 +38,10 @@ export default function AdditionTo12View({
         key={round}
         className="grid h-full grid-rows-[1fr_auto] items-center gap-8 "
       >
-        {!!game.numbers.length && variant === 'dots' ? (
-          <DicesView numbers={game.numbers} round={round} />
-        ) : (
-          <NumbersView numbers={game.numbers} round={round} />
-        )}
+        <TalkingTitle text={game.questionText} />
         <motion.div
-          className="grid w-full max-w-screen-lg grid-cols-2 gap-4 justify-self-center"
+          className="grid w-full max-w-screen-lg grid-cols-4 gap-4
+          justify-self-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}

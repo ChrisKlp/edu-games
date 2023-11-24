@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import Dice from '@/app/policz-kropki/components/Dice'
+import AnswerButton from '@/components/AnswerButton'
+import GameLayout from '@/components/GameLayout'
+import TalkingTitle from '@/components/TalkingTitle'
+import Dice from '@/components/game/Dice'
 import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
+import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Level } from '@/types'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import GameLayout from '../GameLayout'
-import TalkingTitle from '../TalkingTitle'
-import AnswerButton from '../AnswerButton'
-import { useGameSessionStore } from '@/lib/useGameSessionStore'
 
 type Props = {
   level?: Level

@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
+import AnswerButton from '@/components/AnswerButton'
+import FadeInImage from '@/components/FadeInImage'
+import GameLayout from '@/components/GameLayout'
+import TalkingTitle from '@/components/TalkingTitle'
 import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
-import AnswerButton from '../AnswerButton'
-import FadeInImage from '../FadeInImage'
-import GameLayout from '../GameLayout'
-import TalkingTitle from '../TalkingTitle'
 
 type Props = {
   color: string
