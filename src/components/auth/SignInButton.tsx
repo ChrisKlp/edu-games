@@ -13,7 +13,7 @@ export default function SignInButton({ provider, className }: Props) {
   return (
     <button
       className={cn('btn bg-red-600 text-white hover:bg-red-700', className)}
-      onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+      onClick={() => signIn(provider.id)}
     >
       <FaGoogle /> Zaloguj się przez {provider.name}
     </button>

@@ -23,7 +23,7 @@ export default function UserMenu({ session }: Props) {
   }
 
   const handleSignOutClick = () => {
-    signOut({ callbackUrl: '/' })
+    signOut()
     handleClick()
   }
 
