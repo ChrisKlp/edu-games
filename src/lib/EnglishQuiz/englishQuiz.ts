@@ -1,16 +1,17 @@
+import { EnglishWord } from '@prisma/client'
 import { generateNumAnswers } from '../gameUtils'
 import { getRandomArbitrary, shuffleArray } from '../utils'
 
 export type TEnglishQuiz = {
   questionNumber: number
-  questionText: string
-  answers: string[]
-  data: string[]
+  questionWord: EnglishWord
+  answers: EnglishWord[]
+  data: EnglishWord[]
 }
 
-export default function englishQuiz(quizData: string[]) {
+export default function englishQuiz(quizData: EnglishWord[]) {
   const questionNumber = getRandomArbitrary(0, quizData.length - 1)
-  const questionText = quizData[questionNumber]
+  const questionWord = quizData[questionNumber]
 
   const answersSet = generateNumAnswers(
     questionNumber,
@@ -26,7 +27,7 @@ export default function englishQuiz(quizData: string[]) {
   return {
     data: quizData,
     questionNumber,
-    questionText,
+    questionWord,
     answers,
   }
 }

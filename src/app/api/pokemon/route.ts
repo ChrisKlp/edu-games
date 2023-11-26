@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
       const newPokemon = await tx.pokemon.create({
         data: {
           name: name,
-          image: `${process.env.IMAGES_URL}/${name}.png`,
+          image: `${process.env.IMAGES_URL}/pokemons/${name}.png`,
         },
       })
 

@@ -11,6 +11,9 @@ export default async function EnglishColorPage({ params }: Props) {
     where: {
       name: color,
     },
+    include: {
+      values: true,
+    },
   })
 
   if (!data) {

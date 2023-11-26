@@ -1,11 +1,12 @@
 import { create } from 'zustand'
 import englishQuiz, { TEnglishQuiz } from './englishQuiz'
+import { EnglishWord } from '@prisma/client'
 
 type EnglishQuizStore = {
   game: TEnglishQuiz
   points: number
-  setData: (data: string[]) => void
-  nextRound: (name: string) => void
+  setData: (data: EnglishWord[]) => void
+  nextRound: (id: string) => void
   restart: () => void
 }
 
@@ -13,7 +14,12 @@ export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
   game: {
     data: [],
     answers: [],
-    questionText: '',
+    questionWord: {
+      id: '',
+      name: '',
+      image: '',
+      englishQuizId: '',
+    },
     questionNumber: 0,
   },
   points: 0,
@@ -24,12 +30,13 @@ export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
         data,
       },
     })),
-  nextRound: (name) => {
+  nextRound: (id) => {
     const quizData = get().game.data
-    const updatedData = quizData.filter((item) => item !== name)
+    const word = quizData.find((item) => item.id === id)
+    const updatedData = quizData.filter((item) => item.id !== id)
     return set((state) => ({
       game: englishQuiz(updatedData),
-      points: state.points + (name === state.game.questionText ? 1 : 0),
+      points: state.points + (word?.id === state.game.questionWord.id ? 1 : 0),
     }))
   },
   restart: () => {

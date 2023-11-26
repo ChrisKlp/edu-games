@@ -69,7 +69,17 @@ model Pokemon {
 }
 
 model EnglishQuiz {
-    id     String @id @default(cuid())
-    name   String @unique
-    values Json
+    id     String        @id @default(cuid())
+    name   String        @unique
+    values EnglishWord[]
+}
+
+model EnglishWord {
+    id            String       @id @default(cuid())
+    name          String       @unique
+    image         String
+    EnglishQuiz   EnglishQuiz? @relation(fields: [englishQuizId], references: [id])
+    englishQuizId String?
+
+    @@index([englishQuizId])
 }

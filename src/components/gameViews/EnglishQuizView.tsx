@@ -8,18 +8,18 @@ import GameLayout from '@/components/game/GameLayout'
 import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
-import { EnglishQuiz } from '@prisma/client'
+import { EnglishQuiz, EnglishWord } from '@prisma/client'
 import { motion } from 'framer-motion'
 
 type Props = {
-  data: EnglishQuiz
+  data: EnglishQuiz & { values: EnglishWord[] }
 }
 
 export default function EnglishQuizView({ data }: Props) {
   const { game, points, nextRound, restart, setData } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => setData(data.values as string[]),
+    init: () => setData(data.values),
     restart,
     resetSession,
     nextGameRound,
@@ -37,7 +37,7 @@ export default function EnglishQuizView({ data }: Props) {
         key={round}
         className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
       >
-        <TalkingTitle text={game.questionText} language="en-US" />
+        <TalkingTitle text={game.questionWord.name} language="en-US" />
         <motion.div
           className="grid w-full max-w-screen-lg grid-cols-3 gap-4 justify-self-center pb-6"
           initial={{ opacity: 0, y: -20 }}
@@ -46,14 +46,14 @@ export default function EnglishQuizView({ data }: Props) {
         >
           {game.answers.map((answer) => (
             <AnswerButton
-              key={answer}
+              key={answer.id}
               type="image"
-              isGoodAnswer={answer === game.questionText}
-              handleClick={() => handleClick(answer)}
+              isGoodAnswer={answer === game.questionWord}
+              handleClick={() => handleClick(answer.id)}
             >
               <FadeInImage
-                src={`/english/${data.name}/${answer}.jpg`}
-                alt={answer}
+                src={answer.image}
+                alt={answer.name}
                 width={150}
                 height={150}
               />
