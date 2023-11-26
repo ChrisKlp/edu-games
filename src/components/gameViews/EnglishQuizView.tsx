@@ -8,17 +8,18 @@ import GameLayout from '@/components/game/GameLayout'
 import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
+import { EnglishQuiz } from '@prisma/client'
 import { motion } from 'framer-motion'
 
 type Props = {
-  color: string
+  data: EnglishQuiz
 }
 
-export default function EnglishQuizView({ color = 'yellow' }: Props) {
-  const { game, points, nextRound, restart, setColor } = useEnglishQuizStore()
+export default function EnglishQuizView({ data }: Props) {
+  const { game, points, nextRound, restart, setData } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => setColor(color),
+    init: () => setData(data.values as string[]),
     restart,
     resetSession,
     nextGameRound,
@@ -51,7 +52,7 @@ export default function EnglishQuizView({ color = 'yellow' }: Props) {
               handleClick={() => handleClick(answer)}
             >
               <FadeInImage
-                src={`/english/${color}/${answer}.jpg`}
+                src={`/english/${data.name}/${answer}.jpg`}
                 alt={answer}
                 width={150}
                 height={150}

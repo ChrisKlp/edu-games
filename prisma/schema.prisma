@@ -67,3 +67,9 @@ model Pokemon {
 
     users User[]
 }
+
+model EnglishQuiz {
+    id     String @id @default(cuid())
+    name   String @unique
+    values Json
+}
