@@ -5,19 +5,24 @@ import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { cn } from '@/lib/utils'
 import { TypingGame } from '@prisma/client'
 import { Atma } from 'next/font/google'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import SpeakerButton from '../SpeakerButton'
 import GameLayout from '../game/GameLayout'
+import { useSession } from 'next-auth/react'
+import saveGameAction from '@/lib/actions/saveGameAction'
 
 type Props = {
   data: TypingGame
+  startRound?: number
 }
 
 const atma = Atma({ weight: ['400', '700'], subsets: ['latin'] })
 
-export default function TypingGameView({ data }: Props) {
+export default function TypingGameView({ data, startRound = 1 }: Props) {
+  const { data: session } = useSession()
   const [inputValue, setInputValue] = useState('')
+  const [isPending, startTransition] = useTransition()
   const value = data.value as string[]
 
   const {
@@ -27,29 +32,57 @@ export default function TypingGameView({ data }: Props) {
     endGame,
     resetSession,
     setMaxRounds,
+    setStartRound,
   } = useGameSessionStore()
 
   useEffect(() => {
     setMaxRounds(value.length)
+    setStartRound(startRound)
     resetSession()
     return () => {
-      resetSession()
+      handleRestartGame()
     }
   }, [])
 
-  useEffect(() => {
-    setInputValue('')
-  }, [round])
-
   const currentString = value[round - 1]
+
+  const handleRestartGame = () => {
+    setStartRound(1)
+    resetSession()
+  }
+
+  const handleSaveGame = () => {
+    if (session?.user.id) {
+      const gameId = data.id
+      const userId = session.user.id
+      startTransition(() => {
+        saveGameAction(userId, gameId, round.toString())
+      })
+    }
+  }
+
+  const handlePrevClick = () => {
+    const prevRound = round > 1 ? round - 1 : 1
+    const nextText = value[prevRound - 1]
+    console.log(nextText)
+    setInputValue(nextText)
+    prevGameRound()
+  }
+
+  const handleNextClick = () => {
+    nextGameRound()
+    setInputValue('')
+  }
 
   return (
     <GameLayout
       endGame={endGame}
       points={round}
       round={round}
-      restart={resetSession}
+      restart={handleRestartGame}
+      saveGame={handleSaveGame}
       maxRound={value.length}
+      gameMenu={Boolean(session?.user.id)}
     >
       <div
         key={round}
@@ -58,10 +91,10 @@ export default function TypingGameView({ data }: Props) {
         <div
           className={cn(
             atma.className,
-            'grid grid-cols-[1fr_auto] grid-rows-2 gap-4',
+            'grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-4',
           )}
         >
-          <div className="mb-10 pl-4">
+          <div className="pl-4">
             {currentString.split('').map((item, index) => (
               <span
                 key={`${item}-${index}`}
@@ -93,7 +126,7 @@ export default function TypingGameView({ data }: Props) {
               'btn btn-primary btn-lg',
               round <= 1 && 'btn-disabled',
             )}
-            onClick={() => prevGameRound()}
+            onClick={handlePrevClick}
           >
             <FaArrowLeftLong />
           </button>
@@ -103,7 +136,7 @@ export default function TypingGameView({ data }: Props) {
               'btn btn-primary btn-lg',
               currentString !== inputValue && 'btn-disabled',
             )}
-            onClick={() => nextGameRound()}
+            onClick={handleNextClick}
           >
             <FaArrowRightLong />
           </button>

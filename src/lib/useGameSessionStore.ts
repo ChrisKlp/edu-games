@@ -2,16 +2,19 @@ import { create } from 'zustand'
 
 type GameSessionStore = {
   round: number
+  startRound: number
   maxRounds: number
   endGame: boolean
   nextGameRound: () => void
   prevGameRound: () => void
   resetSession: () => void
   setMaxRounds: (maxRounds: number) => void
+  setStartRound: (startRound: number) => void
 }
 
-export const useGameSessionStore = create<GameSessionStore>((set) => ({
+export const useGameSessionStore = create<GameSessionStore>((set, get) => ({
   round: 1,
+  startRound: 1,
   maxRounds: 10,
   endGame: false,
   nextGameRound: () => {
@@ -26,12 +29,16 @@ export const useGameSessionStore = create<GameSessionStore>((set) => ({
     }))
   },
   resetSession: () => {
+    const startRound = get().startRound
     return set({
-      round: 1,
+      round: startRound,
       endGame: false,
     })
   },
   setMaxRounds: (maxRounds) => {
     set({ maxRounds })
+  },
+  setStartRound: (startRound) => {
+    set({ startRound })
   },
 }))

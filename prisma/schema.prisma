@@ -42,14 +42,15 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String     @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?    @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
     collection    Pokemon[]
+    GameSave      GameSave[]
 }
 
 model VerificationToken {
@@ -85,7 +86,20 @@ model EnglishWord {
 }
 
 model TypingGame {
-    id    String @id @default(cuid())
-    name  String
-    value Json
+    id       String     @id @default(cuid())
+    name     String
+    value    Json
+    GameSave GameSave[]
+}
+
+model GameSave {
+    TypingGame   TypingGame @relation(fields: [typingGameId], references: [id])
+    typingGameId String
+    User         User       @relation(fields: [userId], references: [id])
+    userId       String
+    value        String
+
+    @@unique([typingGameId, userId])
+    @@index([typingGameId])
+    @@index([userId])
 }
