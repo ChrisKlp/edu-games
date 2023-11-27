@@ -84,10 +84,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
       maxRound={value.length}
       gameMenu={Boolean(session?.user.id)}
     >
-      <div
-        key={round}
-        className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
-      >
+      <div key={round} className="grid h-full grid-rows-[1fr_auto] gap-8">
         <div
           className={cn(
             atma.className,
