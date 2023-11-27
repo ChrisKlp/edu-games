@@ -1,6 +1,6 @@
 import { LuDices } from 'react-icons/lu'
 import { TbMathXPlusY, TbSpeakerphone } from 'react-icons/tb'
-import { GiDominoTiles } from 'react-icons/gi'
+import { GiDominoTiles, GiTRexSkull } from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
 import { PiOrangeSlice } from 'react-icons/pi'
 import { FaRegHeart } from 'react-icons/fa6'
@@ -69,5 +69,15 @@ export const englishQuizzes = [
     icon: IoWaterOutline,
     bgColor: 'bg-blue-500',
     language: 'en-US',
+  },
+]
+
+export const typingGames = [
+  {
+    id: 'f/eh0oT1H43Co9W0EvaryH9FCFIeskVOBSkPfCfwHWA=',
+    title: 'T-Rex',
+    slug: '/przepisywanki/t-rex',
+    icon: GiTRexSkull,
+    bgColor: 'bg-green-600',
   },
 ]

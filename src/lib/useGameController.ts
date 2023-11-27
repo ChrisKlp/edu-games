@@ -5,10 +5,10 @@ import { useEffect } from 'react'
 
 type TGameController = {
   init?: () => void
-  restart: () => void
-  resetSession: () => void
-  nextRound: (item: any) => void
-  nextGameRound: () => void
+  restart?: () => void
+  resetSession?: () => void
+  nextRound?: (item: any) => void
+  nextGameRound?: () => void
 }
 
 export default function useGameController({
@@ -19,21 +19,21 @@ export default function useGameController({
   nextGameRound,
 }: TGameController) {
   function restartGame() {
-    restart()
-    resetSession()
+    if (restart) restart()
+    if (resetSession) resetSession()
   }
 
   useEffect(() => {
     if (init) init()
     restartGame()
     return () => {
-      resetSession()
+      if (resetSession) resetSession()
     }
   }, [])
 
   const handleClick = (item: number | string) => {
-    nextRound(item)
-    nextGameRound()
+    if (nextRound) nextRound(item)
+    if (nextGameRound) nextGameRound()
   }
 
   return {

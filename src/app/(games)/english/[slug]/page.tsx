@@ -4,7 +4,7 @@ import { prisma } from '@/lib/db/prisma'
 
 type Props = { params: { slug: string } }
 
-export default async function EnglishColorPage({ params }: Props) {
+export default async function EnglishQuizPage({ params }: Props) {
   const color = params.slug
 
   const data = await prisma.englishQuiz.findFirst({

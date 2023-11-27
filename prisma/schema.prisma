@@ -83,3 +83,9 @@ model EnglishWord {
 
     @@index([englishQuizId])
 }
+
+model TypingGame {
+    id    String @id @default(cuid())
+    name  String
+    value Json
+}
