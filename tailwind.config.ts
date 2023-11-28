@@ -17,6 +17,11 @@ const config: Config = {
       },
       center: true,
     },
+    extend: {
+      fontFamily: {
+        kids: ['var(--font-atma)'],
+      },
+    },
   },
   plugins: [daisyui],
   daisyui: {

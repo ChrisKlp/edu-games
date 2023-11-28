@@ -88,6 +88,7 @@ model EnglishWord {
 model TypingGame {
     id       String     @id @default(cuid())
     name     String
+    slug     String
     value    Json
     GameSave GameSave[]
 }

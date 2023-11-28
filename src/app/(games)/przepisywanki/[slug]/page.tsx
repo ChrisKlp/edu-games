@@ -10,7 +10,7 @@ export default async function TypingGamePage({ params }: Props) {
   const session = await getServerSession(authOptions)
   const data = await prisma.typingGame.findFirst({
     where: {
-      name: params.slug,
+      slug: params.slug,
     },
   })
 
@@ -35,8 +35,8 @@ export default async function TypingGamePage({ params }: Props) {
 
   return (
     <section className="grid h-full grid-rows-[auto_1fr] pt-5">
-      <p className="container mb-6 text-center text-2xl font-bold capitalize text-sky-600">
-        {`Przepisywanki ${data.name}`}
+      <p className="container mb-6 text-center text-2xl font-bold text-sky-600">
+        {`Przepisywanki - ${data.name}`}
       </p>
       <div className="bg-slate-100 py-5">
         <TypingGameView data={data} startRound={startRound} />

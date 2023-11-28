@@ -9,6 +9,7 @@ type Props = {
   round: number
   maxRound?: number
   gameMenu?: boolean
+  typingGameValue?: string[]
   restart: () => void
   saveGame?: () => void
 }
@@ -20,6 +21,7 @@ export default function GameLayout({
   round,
   maxRound = 10,
   gameMenu = false,
+  typingGameValue,
   restart,
   saveGame,
 }: Props) {
@@ -27,12 +29,20 @@ export default function GameLayout({
   return (
     <div className="container grid h-full grid-rows-[auto_1fr] gap-8">
       <div className="flex items-center justify-between gap-4">
-        <ProgressBar value={progress} />
+        <ProgressBar value={endGame ? 100 : progress} />
         {gameMenu && (
           <GameMenu handleRestart={restart} handleSaveGame={saveGame} />
         )}
       </div>
-      {!endGame ? children : <EndGame onClick={restart} points={points} />}
+      {!endGame ? (
+        children
+      ) : (
+        <EndGame
+          onClick={restart}
+          points={points}
+          typingGameValue={typingGameValue}
+        />
+      )}
     </div>
   )
 }

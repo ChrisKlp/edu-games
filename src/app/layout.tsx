@@ -3,12 +3,17 @@ import Navbar from '@/components/Navbar'
 import SessionProvider from '@/components/auth/SessionProvider'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
-import { Inter, Nunito } from 'next/font/google'
+import { Atma, Inter, Nunito } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 const nunito = Nunito({ subsets: ['latin'] })
+const atma = Atma({
+  subsets: ['latin'],
+  variable: '--font-atma',
+  weight: ['400', '700'],
+})
 
 export const metadata: Metadata = {
   title: 'Math Games',
@@ -30,6 +35,7 @@ export default function RootLayout({
       <body
         className={cn(
           nunito.className,
+          atma.variable,
           'grid min-h-screen grid-rows-[auto_1fr_auto]  antialiased',
         )}
       >

@@ -8,9 +8,9 @@ export default function Home() {
         Zadania z matmy:
       </p>
       <div className="grid grid-cols-2 gap-4">
-        {gameList.map(({ id, slug, title, icon, bgColor }) => (
+        {gameList.map(({ slug, title, icon, bgColor }) => (
           <GameTile
-            key={id}
+            key={slug}
             link={slug}
             title={title}
             Icon={icon}
@@ -22,9 +22,9 @@ export default function Home() {
         English quizzes:
       </p>
       <div className="grid grid-cols-2 gap-4">
-        {englishQuizzes.map(({ id, slug, title, icon, bgColor, language }) => (
+        {englishQuizzes.map(({ slug, title, icon, bgColor, language }) => (
           <GameTile
-            key={id}
+            key={slug}
             link={slug}
             title={title}
             Icon={icon}
@@ -37,9 +37,9 @@ export default function Home() {
         Przepisywanki:
       </p>
       <div className="grid grid-cols-2 gap-4">
-        {typingGames.map(({ id, slug, title, icon, bgColor }) => (
+        {typingGames.map(({ slug, title, icon, bgColor }) => (
           <GameTile
-            key={id}
+            key={slug}
             link={slug}
             title={title}
             Icon={icon}
