@@ -2,7 +2,7 @@
 
 import useTTS from '@/lib/useTTS'
 import { cn } from '@/lib/utils'
-import { PiSpeakerLowBold, PiStopCircleBold } from 'react-icons/pi'
+import { PiSpeakerLowBold, PiStopCircleFill } from 'react-icons/pi'
 
 type Props = {
   text: string
@@ -28,7 +28,7 @@ export default function SpeakerButton({ text, className, language }: Props) {
       onClick={handleClick}
     >
       {speaking ? (
-        <PiStopCircleBold className="h-auto w-6" />
+        <PiStopCircleFill className="h-auto w-6" />
       ) : (
         <PiSpeakerLowBold className="h-auto w-5" />
       )}

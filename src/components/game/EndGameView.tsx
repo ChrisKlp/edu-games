@@ -1,4 +1,3 @@
-import NoSSRWrapper from '@/components/NoSSRWrapper'
 import Pokemon from '@/components/Pokemon'
 import { cn } from '@/lib/utils'
 import SpeakerButton from '../SpeakerButton'

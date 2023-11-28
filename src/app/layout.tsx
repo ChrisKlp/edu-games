@@ -7,12 +7,12 @@ import { Atma, Inter, Nunito } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
-const inter = Inter({ subsets: ['latin'] })
-const nunito = Nunito({ subsets: ['latin'] })
+const nunito = Nunito({ subsets: ['latin'], display: 'swap' })
 const atma = Atma({
   subsets: ['latin'],
   variable: '--font-atma',
   weight: ['400', '700'],
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
