@@ -74,13 +74,11 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
   const handlePrevClick = () => {
     const prevRound = round > 1 ? round - 1 : 1
     const prevText = value[prevRound - 1]
-    // setInputValue(prevText)
     prevGameRound()
   }
 
   const handleNextClick = () => {
     nextGameRound()
-    // setInputValue('')
   }
 
   return (
@@ -90,7 +88,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
       round={round}
       restart={handleRestartGame}
       saveGame={handleSaveGame}
-      maxRound={maxRounds}
+      maxRounds={maxRounds}
       gameMenu={Boolean(session?.user.id)}
       typingGameValue={fullValue}
     >

@@ -7,7 +7,7 @@ type Props = {
   endGame: boolean
   points: number
   round: number
-  maxRound?: number
+  maxRounds?: number
   gameMenu?: boolean
   typingGameValue?: string[]
   restart: () => void
@@ -19,13 +19,14 @@ export default function GameLayout({
   endGame,
   points,
   round,
-  maxRound = 10,
+  maxRounds = 10,
   gameMenu = false,
   typingGameValue,
   restart,
   saveGame,
 }: Props) {
-  const progress = round === 1 ? 0 : ((round - 1) / maxRound) * 100
+  const progress = round === 1 ? 0 : ((round - 1) / maxRounds) * 100
+
   return (
     <div className="container grid h-full grid-rows-[auto_1fr] gap-8">
       <div className="flex items-center justify-between gap-4">

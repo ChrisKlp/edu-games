@@ -21,7 +21,7 @@ export const useGameSessionStore = create<GameSessionStore>((set, get) => ({
     const maxRounds = get().maxRounds
     return set((state) => ({
       round: state.round === maxRounds ? maxRounds : state.round + 1,
-      endGame: state.round < state.maxRounds ? false : true,
+      endGame: state.round < maxRounds ? false : true,
     }))
   },
   prevGameRound: () => {
