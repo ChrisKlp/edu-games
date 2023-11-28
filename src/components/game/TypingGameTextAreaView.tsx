@@ -28,7 +28,7 @@ export default function TypingGameTextAreaView({
 
   return (
     <div className="grid h-full grid-rows-[1fr_auto] gap-8">
-      <div className="font-kids grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-4">
+      <div className="grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] gap-4 font-serif">
         <div className="pl-4">
           {currentString?.split('').map((item, index) => (
             <span

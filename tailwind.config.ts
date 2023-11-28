@@ -19,7 +19,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        kids: ['var(--font-atma)'],
+        serif: ['var(--font-atma)'],
       },
     },
   },

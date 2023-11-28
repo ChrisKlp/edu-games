@@ -21,7 +21,7 @@ export default function EndGame({ onClick, points, typingGameValue }: Props) {
       </button>
       {typingGameValue && (
         <div className="mt-4 grid justify-items-center gap-4">
-          <div className="font-kids grid justify-items-center text-xl font-bold">
+          <div className="grid justify-items-center font-serif text-xl font-bold">
             {typingGameValue.map((line, i) => (
               <span className={cn(line === '' && 'p-2')} key={`${line}-${i}`}>
                 {line}
