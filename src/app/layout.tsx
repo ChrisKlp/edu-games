@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import { Inter, Nunito } from 'next/font/google'
 import './globals.css'
+import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 const nunito = Nunito({ subsets: ['latin'] })
@@ -37,6 +38,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           {modal}
+          <Toaster position="top-center" />
         </SessionProvider>
       </body>
     </html>

@@ -1,16 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
+import saveGameAction from '@/lib/actions/saveGameAction'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { cn } from '@/lib/utils'
 import { TypingGame } from '@prisma/client'
+import { useSession } from 'next-auth/react'
 import { Atma } from 'next/font/google'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState, useTransition } from 'react'
+import toast from 'react-hot-toast'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import SpeakerButton from '../SpeakerButton'
 import GameLayout from '../game/GameLayout'
-import { useSession } from 'next-auth/react'
-import saveGameAction from '@/lib/actions/saveGameAction'
 
 type Props = {
   data: TypingGame
@@ -23,6 +25,8 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
   const { data: session } = useSession()
   const [inputValue, setInputValue] = useState('')
   const [isPending, startTransition] = useTransition()
+  const pathname = usePathname()
+
   const value = data.value as string[]
 
   const {
@@ -55,8 +59,18 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
     if (session?.user.id) {
       const gameId = data.id
       const userId = session.user.id
-      startTransition(() => {
-        saveGameAction(userId, gameId, round.toString())
+      startTransition(async () => {
+        const result = await saveGameAction(
+          userId,
+          gameId,
+          round.toString(),
+          pathname,
+        )
+        if (result?.error) {
+          toast.error(result.error)
+        } else {
+          toast.success('Gra zapisana')
+        }
       })
     }
   }
