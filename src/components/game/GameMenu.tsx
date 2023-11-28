@@ -11,14 +11,14 @@ export default function GameMenu({ handleRestart, handleSaveGame }: Props) {
   return (
     <div className="flex gap-2">
       <button
-        className="btn btn-info btn-sm w-8 px-0 text-lg text-white"
+        className="btn btn-circle btn-info btn-sm h-10 w-10 p-0 text-xl text-white"
         aria-label="Restart"
         onClick={handleRestart}
       >
         <IoMdRefresh />
       </button>
       <button
-        className="btn btn-info btn-sm w-8 px-0 text-lg text-white"
+        className="btn btn-circle btn-info btn-sm h-10 w-10 p-0 text-xl text-white"
         aria-label="Save"
         onClick={() => {
           if (handleSaveGame) handleSaveGame()

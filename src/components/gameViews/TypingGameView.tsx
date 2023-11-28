@@ -145,7 +145,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
           <button
             className={cn(
               'btn btn-primary btn-lg',
-              currentString !== inputValue && 'btn-disabled',
+              currentString.trim() !== inputValue.trim() && 'btn-disabled',
             )}
             onClick={handleNextClick}
           >
