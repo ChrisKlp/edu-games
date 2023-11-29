@@ -3,9 +3,9 @@ import Navbar from '@/components/Navbar'
 import SessionProvider from '@/components/auth/SessionProvider'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
-import { Atma, Inter, Nunito } from 'next/font/google'
-import './globals.css'
+import { Atma, Nunito } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
+import './globals.css'
 
 const nunito = Nunito({ subsets: ['latin'], display: 'swap' })
 const atma = Atma({
