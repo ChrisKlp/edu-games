@@ -2,92 +2,84 @@ import { LuDices } from 'react-icons/lu'
 import { TbMathXPlusY, TbSpeakerphone, TbSleigh } from 'react-icons/tb'
 import { GiDominoTiles, GiTRexSkull } from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
-import { PiOrangeSlice } from 'react-icons/pi'
+import { PiOrangeSlice, PiGameControllerBold } from 'react-icons/pi'
 import { FaRegHeart, FaHippo } from 'react-icons/fa6'
 import { IoWaterOutline } from 'react-icons/io5'
 import { FaPencilAlt } from 'react-icons/fa'
+import { IconType } from 'react-icons'
 
-export const gameList = [
-  {
-    title: 'Policz kropki',
-    slug: '/policz-kropki',
-    icon: LuDices,
-    bgColor: 'bg-lime-600',
-  },
-  {
-    title: 'Dodaj cyfry',
-    slug: '/dodaj-cyfry',
-    icon: TbMathXPlusY,
-    bgColor: 'bg-sky-600',
-  },
-  {
-    title: 'Rozpoznaj liczbę ze słuchu',
-    slug: '/rozpoznaj-liczbe',
-    icon: TbSpeakerphone,
+export const getGameStyles = (
+  slug: string,
+): { bgColor: string; Icon: IconType } => {
+  const allGames = {
+    ...mathGameStyles,
+    ...englishGameStyles,
+    ...typingGameStyles,
+  } as Record<string, any>
+
+  if (slug in allGames) {
+    return allGames[slug]
+  }
+
+  return {
     bgColor: 'bg-pink-600',
-  },
-  {
-    title: 'Wskaż poprawne kostki',
-    slug: '/wskaz-kostki',
-    icon: GiDominoTiles,
-    bgColor: 'bg-purple-600',
-  },
-]
+    Icon: PiGameControllerBold,
+  }
+}
 
-export const englishQuizzes = [
-  {
-    title: 'Yellow',
-    slug: '/english/yellow',
-    icon: FiSun,
+const mathGameStyles = {
+  'policz-kropki': {
+    bgColor: 'bg-lime-600',
+    Icon: LuDices,
+  },
+  'dodaj-cyfry': {
+    bgColor: 'bg-sky-600',
+    Icon: TbMathXPlusY,
+  },
+  'rozpoznaj-liczbe': {
+    bgColor: 'bg-pink-600',
+    Icon: TbSpeakerphone,
+  },
+  'wskaz-kostki': {
+    bgColor: 'bg-purple-600',
+    Icon: GiDominoTiles,
+  },
+}
+
+const englishGameStyles = {
+  yellow: {
     bgColor: 'bg-yellow-500',
-    language: 'en-US',
+    Icon: FiSun,
   },
-  {
-    title: 'Orange',
-    slug: '/english/orange',
-    icon: PiOrangeSlice,
+  orange: {
     bgColor: 'bg-orange-500',
-    language: 'en-US',
+    Icon: PiOrangeSlice,
   },
-  {
-    title: 'Red',
-    slug: '/english/red',
-    icon: FaRegHeart,
+  red: {
     bgColor: 'bg-red-500',
-    language: 'en-US',
+    Icon: FaRegHeart,
   },
-  {
-    title: 'Blue',
-    slug: '/english/blue',
-    icon: IoWaterOutline,
+  blue: {
     bgColor: 'bg-blue-500',
-    language: 'en-US',
+    Icon: IoWaterOutline,
   },
-]
+}
 
-export const typingGames = [
-  {
-    title: 'T-Rex',
-    slug: '/przepisywanki/t-rex',
-    icon: GiTRexSkull,
+const typingGameStyles = {
+  't-rex': {
     bgColor: 'bg-green-600',
+    Icon: GiTRexSkull,
   },
-  {
-    title: 'Hipopotam',
-    slug: '/przepisywanki/hipopotam',
-    icon: FaHippo,
+  hipopotam: {
     bgColor: 'bg-purple-600',
+    Icon: FaHippo,
   },
-  {
-    title: '5 kredek',
-    slug: '/przepisywanki/5-kredek',
-    icon: FaPencilAlt,
+  '5-kredek': {
     bgColor: 'bg-blue-600',
+    Icon: FaPencilAlt,
   },
-  {
-    title: 'Jadą sanie',
-    slug: '/przepisywanki/jada-sanie',
-    icon: TbSleigh,
+  'jada-sanie': {
     bgColor: 'bg-red-600',
+    Icon: TbSleigh,
   },
-]
+}

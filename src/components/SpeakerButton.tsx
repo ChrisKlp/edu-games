@@ -7,7 +7,7 @@ import { PiSpeakerLowBold, PiStopCircleFill } from 'react-icons/pi'
 type Props = {
   text: string
   className?: string
-  language?: string
+  language?: string | null
 }
 
 export default function SpeakerButton({ text, className, language }: Props) {

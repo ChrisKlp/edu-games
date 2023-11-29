@@ -2,24 +2,27 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { IconType } from 'react-icons'
 import SpeakerButton from './SpeakerButton'
+import { getGameStyles } from '@/app/gameList'
 
 type Props = {
   link: string
+  slug: string
   title: string
-  Icon: IconType
   className?: string
-  ttsLanguage?: string
+  ttsLanguage?: string | null
 }
 
 export default function GameTile({
   link,
   title,
-  Icon,
+  slug,
   className,
   ttsLanguage,
 }: Props) {
+  const { bgColor, Icon } = getGameStyles(slug)
+
   return (
-    <div className={cn('relative rounded-xl bg-pink-700', className)}>
+    <div className={cn('relative rounded-xl bg-pink-700', bgColor, className)}>
       <Link
         href={link}
         className="grid justify-items-center gap-4 p-4 text-white"

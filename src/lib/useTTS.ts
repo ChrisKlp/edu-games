@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 
-export default function useTTS(language: string = 'pl-PL') {
+export default function useTTS(language: string | null = 'pl-PL') {
   const [supported, setSupported] = useState(false)
   const [speaking, setSpeaking] = useState(false)
 
@@ -28,7 +28,11 @@ export default function useTTS(language: string = 'pl-PL') {
       setSpeaking(true)
       const utterance = new window.SpeechSynthesisUtterance()
       utterance.text = text
-      utterance.lang = language
+
+      if (language !== null) {
+        utterance.lang = language
+      }
+
       utterance.pitch = 0.85
       utterance.onend = handleEnd
       window.speechSynthesis.speak(utterance)

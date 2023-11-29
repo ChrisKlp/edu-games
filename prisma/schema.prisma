@@ -42,15 +42,16 @@ model Session {
 }
 
 model User {
-    id            String     @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?    @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
     collection    Pokemon[]
     GameSave      GameSave[]
+    GameScore     GameScore[]
 }
 
 model VerificationToken {
@@ -103,4 +104,33 @@ model GameSave {
     @@unique([typingGameId, userId])
     @@index([typingGameId])
     @@index([userId])
+}
+
+model Game {
+    id           String       @id @default(cuid())
+    name         String
+    slug         String
+    language     String?      @default("pl-PL")
+    GameScore    GameScore[]
+    GameCategory GameCategory @relation(fields: [category], references: [name])
+    category     String
+
+    @@index([category])
+}
+
+model GameScore {
+    value  Int
+    Game   Game   @relation(fields: [gameId], references: [id])
+    gameId String
+    User   User   @relation(fields: [userId], references: [id])
+    userId String
+
+    @@unique([userId, gameId])
+    @@index([gameId])
+    @@index([userId])
+}
+
+model GameCategory {
+    name String @id @unique
+    Game Game[]
 }

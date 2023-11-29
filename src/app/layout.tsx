@@ -16,8 +16,8 @@ const atma = Atma({
 })
 
 export const metadata: Metadata = {
-  title: 'Math Games',
-  description: 'Niecodzienna platforma do nauki cyfr dla najmłodszych',
+  title: 'Edu Games',
+  description: 'Niecodzienna platforma do nauki dla najmłodszych',
   icons: {
     icon: '/favicon.png',
   },
