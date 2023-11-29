@@ -50,8 +50,8 @@ model User {
     accounts      Account[]
     sessions      Session[]
     collection    Pokemon[]
-    GameSave      GameSave[]
-    GameScore     GameScore[]
+    gameScore     GameScore[]
+    gameSave      GameSave[]
 }
 
 model VerificationToken {
@@ -70,60 +70,72 @@ model Pokemon {
     users User[]
 }
 
-model EnglishQuiz {
-    id     String        @id @default(cuid())
-    name   String        @unique
-    values EnglishWord[]
-}
-
-model EnglishWord {
-    id            String       @id @default(cuid())
-    name          String       @unique
-    image         String
-    EnglishQuiz   EnglishQuiz? @relation(fields: [englishQuizId], references: [id])
-    englishQuizId String?
-
-    @@index([englishQuizId])
-}
-
-model TypingGame {
-    id       String     @id @default(cuid())
-    name     String
-    slug     String
-    value    Json
-    GameSave GameSave[]
-}
-
-model GameSave {
-    TypingGame   TypingGame @relation(fields: [typingGameId], references: [id])
-    typingGameId String
-    User         User       @relation(fields: [userId], references: [id])
-    userId       String
-    value        String
-
-    @@unique([typingGameId, userId])
-    @@index([typingGameId])
-    @@index([userId])
-}
-
 model Game {
-    id           String       @id @default(cuid())
-    name         String
-    slug         String
-    language     String?      @default("pl-PL")
-    GameScore    GameScore[]
-    GameCategory GameCategory @relation(fields: [category], references: [name])
-    category     String
+    id       String  @id @default(cuid())
+    name     String
+    slug     String  @unique
+    language String? @default("pl-PL")
+    category String
+
+    gameScore       GameScore[]
+    typingGameData  TypingGameData?
+    englishGameData EnglishGameData?
+
+    gameCategory GameCategory @relation(fields: [category], references: [name])
+    gameSave     GameSave[]
 
     @@index([category])
 }
 
-model GameScore {
-    value  Int
-    Game   Game   @relation(fields: [gameId], references: [id])
-    gameId String
-    User   User   @relation(fields: [userId], references: [id])
+model EnglishGameData {
+    gameId String        @id
+    values EnglishWord[]
+
+    game Game @relation(fields: [gameId], references: [id])
+
+    @@index([gameId])
+}
+
+model EnglishWord {
+    id                    String  @id @default(cuid())
+    name                  String  @unique
+    image                 String
+    englishGameDataGameId String?
+
+    englishGameData EnglishGameData? @relation(fields: [englishGameDataGameId], references: [gameId])
+
+    @@index([englishGameDataGameId])
+}
+
+model TypingGameData {
+    gameId String @id
+    value  Json
+
+    game Game @relation(fields: [gameId], references: [id])
+
+    @@index([gameId])
+}
+
+model GameSave {
     userId String
+    gameId String
+    value  String
+
+    user User @relation(fields: [userId], references: [id])
+    game Game @relation(fields: [gameId], references: [id])
+
+    @@unique([gameId, userId])
+    @@index([userId])
+    @@index([gameId])
+}
+
+model GameScore {
+    userId String
+    gameId String
+    value  Int    @default(0)
+
+    game Game @relation(fields: [gameId], references: [id])
+    user User @relation(fields: [userId], references: [id])
 
     @@unique([userId, gameId])
     @@index([gameId])
@@ -132,5 +144,5 @@ model GameScore {
 
 model GameCategory {
     name String @id @unique
-    Game Game[]
+    game Game[]
 }

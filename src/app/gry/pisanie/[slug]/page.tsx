@@ -6,15 +6,18 @@ import { notFound } from 'next/navigation'
 
 type Props = { params: { slug: string } }
 
-export default async function TypingGamePage({ params }: Props) {
+export default async function TypingGamePage({ params: { slug } }: Props) {
   const session = await getServerSession(authOptions)
-  const data = await prisma.typingGame.findFirst({
+  const data = await prisma.game.findFirst({
     where: {
-      slug: params.slug,
+      slug: slug,
+    },
+    include: {
+      typingGameData: true,
     },
   })
 
-  if (!data) {
+  if (!data?.typingGameData?.value) {
     notFound()
   }
 
@@ -23,7 +26,7 @@ export default async function TypingGamePage({ params }: Props) {
   if (session?.user.id) {
     const gameSave = await prisma.gameSave.findFirst({
       where: {
-        typingGameId: data?.id,
+        gameId: data.id,
         userId: session?.user.id,
       },
     })

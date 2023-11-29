@@ -18,7 +18,7 @@ export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
       id: '',
       name: '',
       image: '',
-      englishQuizId: '',
+      englishGameDataGameId: '',
     },
     questionNumber: 0,
   },

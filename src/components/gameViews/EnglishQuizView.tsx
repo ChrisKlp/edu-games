@@ -8,18 +8,20 @@ import GameLayout from '@/components/game/GameLayout'
 import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
-import { EnglishQuiz, EnglishWord } from '@prisma/client'
+import { Game, EnglishGameData, EnglishWord } from '@prisma/client'
 import { motion } from 'framer-motion'
 
 type Props = {
-  data: EnglishQuiz & { values: EnglishWord[] }
+  data: Game & {
+    englishGameData: (EnglishGameData & { values: EnglishWord[] }) | null
+  }
 }
 
-export default function EnglishQuizView({ data }: Props) {
+export default function EnglishQuizView({ data: { englishGameData } }: Props) {
   const { game, points, nextRound, restart, setData } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => setData(data.values),
+    init: () => englishGameData?.values && setData(englishGameData.values),
     restart,
     resetSession,
     nextGameRound,

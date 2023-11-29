@@ -3,7 +3,7 @@
 
 import saveGameAction from '@/lib/actions/saveGameAction'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
-import { TypingGame } from '@prisma/client'
+import { Game, TypingGameData } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { useEffect, useTransition } from 'react'
@@ -12,7 +12,7 @@ import GameLayout from '../game/GameLayout'
 import TypingGameTextAreaView from '../game/TypingGameTextAreaView'
 
 type Props = {
-  data: TypingGame
+  data: Game & { typingGameData: TypingGameData | null }
   startRound?: number
 }
 
@@ -21,7 +21,10 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
   const [isPending, startTransition] = useTransition()
   const pathname = usePathname()
 
-  const fullValue = data.value as string[]
+  const { typingGameData } = data
+  const fullValue = typingGameData?.value
+    ? (typingGameData.value as string[])
+    : []
   const value = fullValue.filter((i) => Boolean(i))
 
   const {
