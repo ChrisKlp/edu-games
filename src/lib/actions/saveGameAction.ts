@@ -12,9 +12,9 @@ export default async function saveGameAction(
   try {
     await prisma.gameSave.upsert({
       where: {
-        typingGameId_userId: {
+        gameId_userId: {
           userId: userId,
-          typingGameId: gameId,
+          gameId: gameId,
         },
       },
       update: {
@@ -22,7 +22,7 @@ export default async function saveGameAction(
       },
       create: {
         userId: userId,
-        typingGameId: gameId,
+        gameId: gameId,
         value: value,
       },
     })
