@@ -3,13 +3,13 @@
 import { cn } from '@/lib/utils'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import SpeakerButton from '../SpeakerButton'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type Props = {
   round: number
   maxRounds: number
   currentString?: string
-  handlePrevClick: () => void
+  handlePrevClick: () => string
   handleNextClick: () => void
 }
 
@@ -22,9 +22,15 @@ export default function TypingGameTextAreaView({
 }: Props) {
   const [inputValue, setInputValue] = useState('')
 
-  useEffect(() => {
+  const handlePrevButtonClick = () => {
+    const prevText = handlePrevClick()
+    setInputValue(prevText)
+  }
+
+  const handleNextButtonClick = () => {
+    handleNextClick()
     setInputValue('')
-  }, [round])
+  }
 
   return (
     <div className="grid h-full grid-rows-[1fr_auto] gap-8">
@@ -52,7 +58,7 @@ export default function TypingGameTextAreaView({
             value={inputValue}
             rows={3}
             onChange={(e) => setInputValue(e.currentTarget.value)}
-            className="w-full text-4xl font-bold text-sky-800 outline-none"
+            className="h-full w-full text-4xl font-bold text-sky-800 outline-none"
           />
         </div>
         <SpeakerButton text={inputValue} className="btn-primary" />
@@ -60,7 +66,7 @@ export default function TypingGameTextAreaView({
       <div className="flex items-center justify-between">
         <button
           className={cn('btn btn-primary btn-lg', round <= 1 && 'btn-disabled')}
-          onClick={handlePrevClick}
+          onClick={handlePrevButtonClick}
         >
           <FaArrowLeftLong />
         </button>
@@ -70,7 +76,7 @@ export default function TypingGameTextAreaView({
             'btn btn-primary btn-lg',
             currentString?.trim() !== inputValue.trim() && 'btn-disabled',
           )}
-          onClick={handleNextClick}
+          onClick={handleNextButtonClick}
         >
           <FaArrowRightLong />
         </button>

@@ -6,7 +6,7 @@ import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Game, TypingGameData } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
-import { useEffect, useTransition } from 'react'
+import { Dispatch, SetStateAction, useEffect, useTransition } from 'react'
 import toast from 'react-hot-toast'
 import GameLayout from '../game/GameLayout'
 import TypingGameTextAreaView from '../game/TypingGameTextAreaView'
@@ -78,6 +78,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
     const prevRound = round > 1 ? round - 1 : 1
     const prevText = value[prevRound - 1]
     prevGameRound()
+    return prevText
   }
 
   const handleNextClick = () => {
