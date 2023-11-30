@@ -18,12 +18,12 @@ export default async function saveGameAction(
         },
       },
       update: {
-        value: value,
+        data: value,
       },
       create: {
         userId: userId,
         gameId: gameId,
-        value: value,
+        data: value,
       },
     })
   } catch (error) {

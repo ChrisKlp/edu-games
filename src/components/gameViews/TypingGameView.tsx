@@ -6,7 +6,7 @@ import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Game, TypingGameData } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
-import { Dispatch, SetStateAction, useEffect, useTransition } from 'react'
+import { useEffect, useTransition } from 'react'
 import toast from 'react-hot-toast'
 import GameLayout from '../game/GameLayout'
 import TypingGameTextAreaView from '../game/TypingGameTextAreaView'
@@ -22,8 +22,8 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
   const pathname = usePathname()
 
   const { typingGameData } = data
-  const fullValue = typingGameData?.value
-    ? (typingGameData.value as string[])
+  const fullValue = typingGameData?.data
+    ? (typingGameData.data as string[])
     : []
   const value = fullValue.filter((i) => Boolean(i))
 

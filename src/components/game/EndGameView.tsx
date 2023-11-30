@@ -1,6 +1,7 @@
 import Pokemon from '@/components/Pokemon'
 import { cn } from '@/lib/utils'
 import SpeakerButton from '../SpeakerButton'
+import { prisma } from '@/lib/db/prisma'
 
 type Props = {
   points: number
@@ -8,10 +9,14 @@ type Props = {
   onClick: () => void
 }
 
-export default function EndGame({ onClick, points, typingGameValue }: Props) {
+export default async function EndGame({
+  onClick,
+  points,
+  typingGameValue,
+}: Props) {
   return (
     <div className="grid place-items-center gap-4 self-start">
-      <p className="text-xl font-bold ">Twoje punkty:</p>
+      <p className="text-xl font-bold ">Zdobyte punkty:</p>
       <p className="text-3xl font-bold text-lime-600">{`${points}`}</p>
       <button
         className="rounded-lg bg-pink-700 p-4 px-12 font-bold text-white"

@@ -13,7 +13,7 @@ import { motion } from 'framer-motion'
 
 type Props = {
   data: Game & {
-    englishGameData: (EnglishGameData & { values: EnglishWord[] }) | null
+    englishGameData: (EnglishGameData & { data: EnglishWord[] }) | null
   }
 }
 
@@ -21,7 +21,7 @@ export default function EnglishQuizView({ data: { englishGameData } }: Props) {
   const { game, points, nextRound, restart, setData } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => englishGameData?.values && setData(englishGameData.values),
+    init: () => englishGameData?.data && setData(englishGameData.data),
     restart,
     resetSession,
     nextGameRound,

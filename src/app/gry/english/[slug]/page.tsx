@@ -12,13 +12,13 @@ export default async function EnglishQuizPage({ params: { slug } }: Props) {
     include: {
       englishGameData: {
         include: {
-          values: true,
+          data: true,
         },
       },
     },
   })
 
-  if (!data?.englishGameData?.values) {
+  if (!data?.englishGameData?.data) {
     notFound()
   }
 

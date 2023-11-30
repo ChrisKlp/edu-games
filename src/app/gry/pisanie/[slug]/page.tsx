@@ -17,7 +17,7 @@ export default async function TypingGamePage({ params: { slug } }: Props) {
     },
   })
 
-  if (!data?.typingGameData?.value) {
+  if (!data?.typingGameData?.data) {
     notFound()
   }
 
@@ -31,8 +31,8 @@ export default async function TypingGamePage({ params: { slug } }: Props) {
       },
     })
 
-    if (gameSave?.value) {
-      startRound = +gameSave.value
+    if (gameSave?.data) {
+      startRound = +gameSave.data
     }
   }
 

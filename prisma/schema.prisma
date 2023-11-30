@@ -89,7 +89,7 @@ model Game {
 
 model EnglishGameData {
     gameId String        @id
-    values EnglishWord[]
+    data   EnglishWord[]
 
     game Game @relation(fields: [gameId], references: [id])
 
@@ -109,7 +109,7 @@ model EnglishWord {
 
 model TypingGameData {
     gameId String @id
-    value  Json
+    data   Json
 
     game Game @relation(fields: [gameId], references: [id])
 
@@ -119,7 +119,7 @@ model TypingGameData {
 model GameSave {
     userId String
     gameId String
-    value  String
+    data   String
 
     user User @relation(fields: [userId], references: [id])
     game Game @relation(fields: [gameId], references: [id])
@@ -132,7 +132,7 @@ model GameSave {
 model GameScore {
     userId String
     gameId String
-    value  Int    @default(0)
+    data   Int    @default(0)
 
     game Game @relation(fields: [gameId], references: [id])
     user User @relation(fields: [userId], references: [id])
