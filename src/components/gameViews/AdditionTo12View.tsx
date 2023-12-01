@@ -24,9 +24,13 @@ export default function AdditionTo12View({
   data,
 }: Props) {
   const { game, points, restart, nextRound, setLevel } = useAdditionTo12Store()
-  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+  const { round, nextGameRound, endGame, resetSession, setMaxRounds } =
+    useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => setLevel(level),
+    init: () => {
+      setLevel(level)
+      setMaxRounds(10)
+    },
     restart,
     resetSession,
     nextGameRound,

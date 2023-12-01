@@ -16,8 +16,10 @@ type Props = {
 
 export default function HearTheNumberView({ data }: Props) {
   const { game, points, restart, nextRound } = useListenTheNumberStore()
-  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+  const { round, nextGameRound, endGame, resetSession, setMaxRounds } =
+    useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
+    init: () => setMaxRounds(10),
     restart,
     resetSession,
     nextGameRound,

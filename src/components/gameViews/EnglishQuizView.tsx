@@ -19,10 +19,13 @@ type Props = {
 
 export default function EnglishQuizView({ data }: Props) {
   const { game, points, nextRound, restart, setData } = useEnglishQuizStore()
-  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+  const { round, nextGameRound, endGame, resetSession, setMaxRounds } =
+    useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () =>
-      data.englishGameData?.data && setData(data.englishGameData.data),
+    init: () => {
+      data.englishGameData?.data && setData(data.englishGameData.data)
+      setMaxRounds(10)
+    },
     restart,
     resetSession,
     nextGameRound,

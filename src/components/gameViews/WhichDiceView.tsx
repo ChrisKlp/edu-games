@@ -19,9 +19,13 @@ type Props = {
 
 export default function WhichDiceView({ level = Level.normal, data }: Props) {
   const { game, points, restart, nextRound, setLevel } = useWhichDiceStore()
-  const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
+  const { round, nextGameRound, endGame, resetSession, setMaxRounds } =
+    useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => setLevel(level),
+    init: () => {
+      setLevel(level)
+      setMaxRounds(10)
+    },
     restart,
     resetSession,
     nextGameRound,
