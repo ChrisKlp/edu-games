@@ -137,7 +137,7 @@ model GameScore {
     game Game @relation(fields: [gameId], references: [id])
     user User @relation(fields: [userId], references: [id])
 
-    @@unique([userId, gameId])
+    @@unique([gameId, userId])
     @@index([gameId])
     @@index([userId])
 }

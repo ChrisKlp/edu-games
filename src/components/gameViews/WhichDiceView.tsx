@@ -9,13 +9,15 @@ import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Level } from '@/types'
+import { Game } from '@prisma/client'
 import { motion } from 'framer-motion'
 
 type Props = {
   level?: Level
+  data: Game
 }
 
-export default function WhichDiceView({ level = Level.normal }: Props) {
+export default function WhichDiceView({ level = Level.normal, data }: Props) {
   const { game, points, restart, nextRound, setLevel } = useWhichDiceStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
@@ -28,6 +30,7 @@ export default function WhichDiceView({ level = Level.normal }: Props) {
 
   return (
     <GameLayout
+      gameId={data.id}
       endGame={endGame}
       points={points}
       round={round}

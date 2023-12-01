@@ -7,9 +7,14 @@ import TalkingTitle from '@/components/TalkingTitle'
 import { useListenTheNumberStore } from '@/lib/ListenTheNumberGame/useListenTheNumberStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
+import { Game } from '@prisma/client'
 import { motion } from 'framer-motion'
 
-export default function HearTheNumberView() {
+type Props = {
+  data: Game
+}
+
+export default function HearTheNumberView({ data }: Props) {
   const { game, points, restart, nextRound } = useListenTheNumberStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
@@ -21,6 +26,7 @@ export default function HearTheNumberView() {
 
   return (
     <GameLayout
+      gameId={data.id}
       endGame={endGame}
       points={points}
       round={round}

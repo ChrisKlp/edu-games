@@ -21,13 +21,15 @@ export default async function MathGamePage({ params: { slug } }: Props) {
   const getGameView = () => {
     switch (slug) {
       case 'policz-kropki':
-        return <AdditionTo12View />
+        return <AdditionTo12View data={data} />
       case 'dodaj-cyfry':
-        return <AdditionTo12View variant="numbers" level={Level.easy} />
+        return (
+          <AdditionTo12View variant="numbers" level={Level.easy} data={data} />
+        )
       case 'rozpoznaj-liczbe':
-        return <ListenTheNumberView />
+        return <ListenTheNumberView data={data} />
       case 'wskaz-kostki':
-        return <WhichDiceView />
+        return <WhichDiceView data={data} />
       default:
         notFound()
     }

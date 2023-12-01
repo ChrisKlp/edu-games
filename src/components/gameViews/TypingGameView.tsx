@@ -22,10 +22,8 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
   const pathname = usePathname()
 
   const { typingGameData } = data
-  const fullValue = typingGameData?.data
-    ? (typingGameData.data as string[])
-    : []
-  const value = fullValue.filter((i) => Boolean(i))
+  const fullData = typingGameData?.data ? (typingGameData.data as string[]) : []
+  const filteredData = fullData.filter((i) => Boolean(i))
 
   const {
     round,
@@ -39,7 +37,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
   } = useGameSessionStore()
 
   useEffect(() => {
-    setMaxRounds(value.length)
+    setMaxRounds(filteredData.length)
     setStartRound(startRound)
     resetSession()
     return () => {
@@ -47,7 +45,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
     }
   }, [])
 
-  const currentString = value[round - 1]
+  const currentString = filteredData[round - 1]
 
   const handleRestartGame = () => {
     setStartRound(1)
@@ -76,7 +74,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
 
   const handlePrevClick = () => {
     const prevRound = round > 1 ? round - 1 : 1
-    const prevText = value[prevRound - 1]
+    const prevText = filteredData[prevRound - 1]
     prevGameRound()
     return prevText
   }
@@ -87,6 +85,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
 
   return (
     <GameLayout
+      gameId={data.id}
       endGame={endGame}
       points={round}
       round={round}
@@ -94,7 +93,7 @@ export default function TypingGameView({ data, startRound = 1 }: Props) {
       saveGame={handleSaveGame}
       maxRounds={maxRounds}
       gameMenu={Boolean(session?.user.id)}
-      typingGameValue={fullValue}
+      typingGameData={fullData}
     >
       <TypingGameTextAreaView
         round={round}

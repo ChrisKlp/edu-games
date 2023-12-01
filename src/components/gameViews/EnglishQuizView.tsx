@@ -17,11 +17,12 @@ type Props = {
   }
 }
 
-export default function EnglishQuizView({ data: { englishGameData } }: Props) {
+export default function EnglishQuizView({ data }: Props) {
   const { game, points, nextRound, restart, setData } = useEnglishQuizStore()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
-    init: () => englishGameData?.data && setData(englishGameData.data),
+    init: () =>
+      data.englishGameData?.data && setData(data.englishGameData.data),
     restart,
     resetSession,
     nextGameRound,
@@ -30,6 +31,7 @@ export default function EnglishQuizView({ data: { englishGameData } }: Props) {
 
   return (
     <GameLayout
+      gameId={data.id}
       endGame={endGame}
       points={points}
       round={round}

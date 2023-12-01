@@ -1,27 +1,29 @@
-import EndGame from './EndGameView'
 import ProgressBar from '../ProgressBar'
+import EndGameView from './EndGameView'
 import GameMenu from './GameMenu'
 
 type Props = {
   children: React.ReactNode
+  gameId: string
   endGame: boolean
   points: number
   round: number
   maxRounds?: number
   gameMenu?: boolean
-  typingGameValue?: string[]
+  typingGameData?: string[]
   restart: () => void
   saveGame?: () => void
 }
 
 export default function GameLayout({
   children,
+  gameId,
   endGame,
   points,
   round,
   maxRounds = 10,
   gameMenu = false,
-  typingGameValue,
+  typingGameData,
   restart,
   saveGame,
 }: Props) {
@@ -38,10 +40,11 @@ export default function GameLayout({
       {!endGame ? (
         children
       ) : (
-        <EndGame
+        <EndGameView
+          gameId={gameId}
           onClick={restart}
           points={points}
-          typingGameValue={typingGameValue}
+          typingGameData={typingGameData}
         />
       )}
     </div>

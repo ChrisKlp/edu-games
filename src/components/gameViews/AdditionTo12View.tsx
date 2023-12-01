@@ -9,16 +9,19 @@ import { useAdditionTo12Store } from '@/lib/AdditionTo12Game/useAdditionTo12Stor
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Level } from '@/types'
+import { Game } from '@prisma/client'
 import { motion } from 'framer-motion'
 
 type Props = {
   variant?: 'numbers' | 'dots'
   level?: Level
+  data: Game
 }
 
 export default function AdditionTo12View({
   variant = 'dots',
   level = Level.normal,
+  data,
 }: Props) {
   const { game, points, restart, nextRound, setLevel } = useAdditionTo12Store()
   const { round, nextGameRound, endGame, resetSession } = useGameSessionStore()
@@ -32,6 +35,7 @@ export default function AdditionTo12View({
 
   return (
     <GameLayout
+      gameId={data.id}
       endGame={endGame}
       points={points}
       round={round}
