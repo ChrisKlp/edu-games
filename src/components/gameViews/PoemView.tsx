@@ -18,11 +18,9 @@ export default function PoemView({ data }: Props) {
     .filter((_, index) => selected.includes(index))
     .join(',\n')
 
-  console.log(tts)
-
   return (
     <div className="container grid h-full gap-8">
-      <div className="grid justify-items-center gap-3">
+      <div className="grid justify-items-center gap-4">
         {fullData.map((item, index) => (
           <TextSelect
             isSelected={selected.includes(index)}
@@ -38,7 +36,7 @@ export default function PoemView({ data }: Props) {
             {item}
           </TextSelect>
         ))}
-        <SpeakerButton text={tts} className="btn-primary" />
+        <SpeakerButton variant="big" text={tts} className="btn-primary" />
       </div>
     </div>
   )
