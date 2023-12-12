@@ -7,6 +7,7 @@ export default async function Home() {
   const mathGames = games.filter((item) => item.category === 'matematyka')
   const englishGames = games.filter((item) => item.category === 'english')
   const typingGames = games.filter((item) => item.category === 'pisanie')
+  const poemsGames = games.filter((item) => item.category === 'wiersze')
 
   return (
     <section className="container grid gap-6 pt-5">
@@ -43,6 +44,20 @@ export default async function Home() {
       </p>
       <div className="grid grid-cols-2 gap-4">
         {typingGames.map(({ id, name, slug, language, category }) => (
+          <GameTile
+            key={id}
+            slug={slug}
+            link={`/gry/${category}/${slug}`}
+            title={name}
+            ttsLanguage={language}
+          />
+        ))}
+      </div>
+      <p className="text-center text-2xl font-bold text-sky-600">
+        Wiersze do nauki:
+      </p>
+      <div className="grid grid-cols-2 gap-4">
+        {poemsGames.map(({ id, name, slug, language, category }) => (
           <GameTile
             key={id}
             slug={slug}

@@ -1,5 +1,10 @@
 import { LuDices } from 'react-icons/lu'
-import { TbMathXPlusY, TbSpeakerphone, TbSleigh } from 'react-icons/tb'
+import {
+  TbMathXPlusY,
+  TbSpeakerphone,
+  TbSleigh,
+  TbChristmasTree,
+} from 'react-icons/tb'
 import { GiDominoTiles, GiTRexSkull } from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
 import { PiOrangeSlice, PiGameControllerBold } from 'react-icons/pi'
@@ -15,6 +20,7 @@ export const getGameStyles = (
     ...mathGameStyles,
     ...englishGameStyles,
     ...typingGameStyles,
+    ...poemGameStyles,
   } as Record<string, any>
 
   if (slug in allGames) {
@@ -81,5 +87,12 @@ const typingGameStyles = {
   'jada-sanie': {
     bgColor: 'bg-red-600',
     Icon: TbSleigh,
+  },
+}
+
+const poemGameStyles = {
+  'wiersz-wigilia': {
+    bgColor: 'bg-green-600',
+    Icon: TbChristmasTree,
   },
 }

@@ -80,6 +80,7 @@ model Game {
     gameScore       GameScore[]
     typingGameData  TypingGameData?
     englishGameData EnglishGameData?
+    poemGameData    PoemGameData?
 
     gameCategory GameCategory @relation(fields: [category], references: [name])
     gameSave     GameSave[]
@@ -108,6 +109,15 @@ model EnglishWord {
 }
 
 model TypingGameData {
+    gameId String @id
+    data   Json
+
+    game Game @relation(fields: [gameId], references: [id])
+
+    @@index([gameId])
+}
+
+model PoemGameData {
     gameId String @id
     data   Json
 
