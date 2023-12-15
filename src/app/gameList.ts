@@ -1,15 +1,20 @@
-import { LuDices } from 'react-icons/lu'
+import { LuDices, LuLeafyGreen } from 'react-icons/lu'
 import {
   TbMathXPlusY,
   TbSpeakerphone,
   TbSleigh,
   TbChristmasTree,
 } from 'react-icons/tb'
-import { GiDominoTiles, GiTRexSkull } from 'react-icons/gi'
+import {
+  GiDominoTiles,
+  GiTRexSkull,
+  GiBearFace,
+  GiSpiralLollipop,
+} from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
 import { PiOrangeSlice, PiGameControllerBold } from 'react-icons/pi'
 import { FaRegHeart, FaHippo } from 'react-icons/fa6'
-import { IoWaterOutline } from 'react-icons/io5'
+import { IoWaterOutline, IoFootball } from 'react-icons/io5'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IconType } from 'react-icons'
 
@@ -68,6 +73,22 @@ const englishGameStyles = {
   blue: {
     bgColor: 'bg-blue-500',
     Icon: IoWaterOutline,
+  },
+  green: {
+    bgColor: 'bg-green-600',
+    Icon: LuLeafyGreen,
+  },
+  brown: {
+    bgColor: 'bg-amber-800',
+    Icon: GiBearFace,
+  },
+  'pink-and-violet': {
+    bgColor: 'bg-pink-600',
+    Icon: GiSpiralLollipop,
+  },
+  'black-and-white': {
+    bgColor: 'bg-black',
+    Icon: IoFootball,
   },
 }
 
