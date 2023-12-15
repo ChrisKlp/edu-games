@@ -26,7 +26,9 @@ export default function EnglishQuizView({ data }: Props) {
       data.englishGameData?.data && setData(data.englishGameData.data)
       setMaxRounds(10)
     },
-    restart,
+    restart: () => {
+      data.englishGameData?.data && restart(data.englishGameData.data)
+    },
     resetSession,
     nextGameRound,
     nextRound,

@@ -7,7 +7,7 @@ type EnglishQuizStore = {
   points: number
   setData: (data: EnglishWord[]) => void
   nextRound: (id: string) => void
-  restart: () => void
+  restart: (data: EnglishWord[]) => void
 }
 
 export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
@@ -39,10 +39,9 @@ export const useEnglishQuizStore = create<EnglishQuizStore>((set, get) => ({
       points: state.points + (word?.id === state.game.questionWord.id ? 1 : 0),
     }))
   },
-  restart: () => {
-    const quizData = get().game.data
+  restart: (data) => {
     return set({
-      game: englishQuiz(quizData),
+      game: englishQuiz(data),
       points: 0,
     })
   },
