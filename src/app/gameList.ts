@@ -4,6 +4,7 @@ import {
   TbSpeakerphone,
   TbSleigh,
   TbChristmasTree,
+  TbMessageLanguage,
 } from 'react-icons/tb'
 import {
   GiDominoTiles,
@@ -15,7 +16,7 @@ import { FiSun } from 'react-icons/fi'
 import { PiOrangeSlice, PiGameControllerBold } from 'react-icons/pi'
 import { FaRegHeart, FaHippo } from 'react-icons/fa6'
 import { IoWaterOutline, IoFootball } from 'react-icons/io5'
-import { FaPencilAlt } from 'react-icons/fa'
+import { FaPencilAlt, FaRegKeyboard, FaBookOpen } from 'react-icons/fa'
 import { IconType } from 'react-icons'
 
 export const getGameStyles = (
@@ -116,4 +117,36 @@ const poemGameStyles = {
     bgColor: 'bg-green-600',
     Icon: TbChristmasTree,
   },
+}
+
+const gameCategories = {
+  english: {
+    bgColor: 'bg-blue-500',
+    Icon: TbMessageLanguage,
+  },
+  matematyka: {
+    bgColor: 'bg-orange-500',
+    Icon: TbMathXPlusY,
+  },
+  wiersze: {
+    bgColor: 'bg-green-600',
+    Icon: FaBookOpen,
+  },
+  pisanie: {
+    bgColor: 'bg-pink-600',
+    Icon: FaRegKeyboard,
+  },
+} as Record<string, any>
+
+export const getGameCategories = (
+  category: string,
+): { bgColor: string; Icon: IconType } => {
+  if (category in gameCategories) {
+    return gameCategories[category]
+  }
+
+  return {
+    bgColor: 'bg-pink-600',
+    Icon: PiGameControllerBold,
+  }
 }

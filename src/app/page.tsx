@@ -1,71 +1,41 @@
-import GameTile from '@/components/GameTile'
+import SpeakerButton from '@/components/SpeakerButton'
 import { prisma } from '@/lib/db/prisma'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
+import { getGameCategories } from './gameList'
 
 export default async function Home() {
-  const games = await prisma.game.findMany()
-
-  const mathGames = games.filter((item) => item.category === 'matematyka')
-  const englishGames = games.filter((item) => item.category === 'english')
-  const typingGames = games.filter((item) => item.category === 'pisanie')
-  const poemsGames = games.filter((item) => item.category === 'wiersze')
+  const categories = await prisma.gameCategory.findMany()
 
   return (
     <section className="container grid gap-6 pt-5">
-      <p className="text-center text-2xl font-bold text-sky-600">
-        Zadania z matmy:
-      </p>
       <div className="grid grid-cols-2 gap-4">
-        {mathGames.map(({ id, name, slug, language, category }) => (
-          <GameTile
-            key={id}
-            slug={slug}
-            link={`/gry/${category}/${slug}`}
-            title={name}
-            ttsLanguage={language}
-          />
-        ))}
-      </div>
-      <p className="text-center text-2xl font-bold text-sky-600">
-        English quizzes:
-      </p>
-      <div className="grid grid-cols-2 gap-4">
-        {englishGames.map(({ id, name, slug, language, category }) => (
-          <GameTile
-            key={id}
-            slug={slug}
-            link={`/gry/${category}/${slug}`}
-            title={name}
-            ttsLanguage={language}
-          />
-        ))}
-      </div>
-      <p className="text-center text-2xl font-bold text-sky-600">
-        Przepisywanki:
-      </p>
-      <div className="grid grid-cols-2 gap-4">
-        {typingGames.map(({ id, name, slug, language, category }) => (
-          <GameTile
-            key={id}
-            slug={slug}
-            link={`/gry/${category}/${slug}`}
-            title={name}
-            ttsLanguage={language}
-          />
-        ))}
-      </div>
-      <p className="text-center text-2xl font-bold text-sky-600">
-        Wiersze do nauki:
-      </p>
-      <div className="grid grid-cols-2 gap-4">
-        {poemsGames.map(({ id, name, slug, language, category }) => (
-          <GameTile
-            key={id}
-            slug={slug}
-            link={`/gry/${category}/${slug}`}
-            title={name}
-            ttsLanguage={language}
-          />
-        ))}
+        {categories.map(({ name }) => {
+          const { Icon, bgColor } = getGameCategories(name)
+          return (
+            <div
+              key={name}
+              className={cn('relative rounded-xl bg-pink-700', bgColor)}
+            >
+              <Link
+                href={`/gry/${name}`}
+                className="grid justify-items-center gap-4 p-4 text-white"
+              >
+                <span>
+                  <Icon className="h-auto w-20" />
+                </span>
+                <span className="text-center text-xl font-bold capitalize">
+                  {name}
+                </span>
+              </Link>
+              <SpeakerButton
+                className="absolute right-2 top-2"
+                text={name}
+                language={name === 'english' ? 'en-EN' : 'pl-PL'}
+              />
+            </div>
+          )
+        })}
       </div>
     </section>
   )
