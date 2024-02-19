@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
+import GameLayout from '@/components/games/GameLayout'
+import TypingGameTextAreaView from '@/components/games/TypingGame/TypingGameTextAreaView'
 import saveGameAction from '@/lib/actions/saveGameAction'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Game, TypingGameData } from '@prisma/client'
@@ -8,8 +10,6 @@ import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { useEffect, useTransition } from 'react'
 import toast from 'react-hot-toast'
-import GameLayout from '../game/GameLayout'
-import TypingGameTextAreaView from '../game/TypingGameTextAreaView'
 
 type Props = {
   data: Game & { typingGameData: TypingGameData | null }

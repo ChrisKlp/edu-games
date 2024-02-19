@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
-import SpeakerButton from '../SpeakerButton'
+import SpeakerButton from '../../SpeakerButton'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 type Props = {

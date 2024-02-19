@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 
-import TalkingTitle from '@/components/TalkingTitle'
-import AnswerButton from '@/components/game/AnswerButton'
-import Dice from '@/components/game/Dice'
-import GameLayout from '@/components/game/GameLayout'
-import { useWhichDiceStore } from '@/lib/WhichDiceGame/useWhichDiceStore'
+import AnswerButton from '@/components/games/AnswerButton'
+import DicesView from '@/components/games/DicesView'
+import GameLayout from '@/components/games/GameLayout'
+import NumbersView from '@/components/games/NumbersView'
+import { useAdditionTo12Store } from '@/lib/games/AdditionTo12/useAdditionTo12Store'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Level } from '@/types'
@@ -13,12 +13,17 @@ import { Game } from '@prisma/client'
 import { motion } from 'framer-motion'
 
 type Props = {
+  variant?: 'numbers' | 'dots'
   level?: Level
   data: Game
 }
 
-export default function WhichDiceView({ level = Level.normal, data }: Props) {
-  const { game, points, restart, nextRound, setLevel } = useWhichDiceStore()
+export default function AdditionTo12View({
+  variant = 'dots',
+  level = Level.normal,
+  data,
+}: Props) {
+  const { game, points, restart, nextRound, setLevel } = useAdditionTo12Store()
   const { round, nextGameRound, endGame, resetSession, setMaxRounds } =
     useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
@@ -42,32 +47,26 @@ export default function WhichDiceView({ level = Level.normal, data }: Props) {
     >
       <div
         key={round}
-        className="grid h-full grid-rows-[1fr_auto] items-center gap-8"
+        className="grid h-full grid-rows-[1fr_auto] items-center gap-8 "
       >
-        <TalkingTitle text={game.questionText} />
+        {!!game.numbers.length && variant === 'dots' ? (
+          <DicesView numbers={game.numbers} round={round} />
+        ) : (
+          <NumbersView numbers={game.numbers} round={round} />
+        )}
         <motion.div
-          className="grid w-full max-w-screen-lg grid-cols-3 gap-4 justify-self-center
-          pb-6"
+          className="grid w-full max-w-screen-lg grid-cols-2 gap-4 justify-self-center"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          {game.answers.map(({ id, answer, numbers }) => (
+          {game.answers.map((answer, i) => (
             <AnswerButton
-              key={id}
-              type="image"
+              key={`${round}-answer-${answer}-${i}`}
               isGoodAnswer={answer === game.questionNumber}
               handleClick={() => handleClick(answer)}
             >
-              <span className="flex flex-col items-center justify-center gap-1 md:flex-row">
-                {numbers.map((num, ind) => (
-                  <Dice
-                    number={num}
-                    key={`${id}-${num}-${ind}`}
-                    className="max-w-[75px] drop-shadow-xl sm:max-w-[75px] md:max-w-[90px]"
-                  />
-                ))}
-              </span>
+              {answer}
             </AnswerButton>
           ))}
         </motion.div>

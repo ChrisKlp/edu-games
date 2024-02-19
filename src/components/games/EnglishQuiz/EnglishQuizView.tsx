@@ -3,9 +3,9 @@
 
 import FadeInImage from '@/components/FadeInImage'
 import TalkingTitle from '@/components/TalkingTitle'
-import AnswerButton from '@/components/game/AnswerButton'
-import GameLayout from '@/components/game/GameLayout'
-import { useEnglishQuizStore } from '@/lib/EnglishQuiz/useEnglishQuizStore'
+import AnswerButton from '@/components/games/AnswerButton'
+import GameLayout from '@/components/games/GameLayout'
+import { useEnglishQuizStore } from '@/lib/games/EnglishQuiz/useEnglishQuizStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { Game, EnglishGameData, EnglishWord } from '@prisma/client'

@@ -1,15 +1,15 @@
 'use client'
 
-import GameLayout from '@/components/game/GameLayout'
-import { useLettersGameStore } from '@/lib/LettersGame/useLettersGameStore'
+import GameLayout from '@/components/games/GameLayout'
+import LetterButton from '@/components/games/LettersGame/LetterButton'
+import { useLettersGameStore } from '@/lib/games/LettersGame/useLettersGameStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { cn } from '@/lib/utils'
 import { Game, LettersGameData, PolishWord } from '@prisma/client'
 import { motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import TalkingFadeInImage from '../TalkingFadeInImage'
-import LetterButton from '../game/LetterButton'
+import TalkingFadeInImage from '../../TalkingFadeInImage'
 
 type Props = {
   data: Game & {

@@ -1,6 +1,6 @@
 import { Numbers } from '@/types'
-import { getRandomArbitrary, shuffleArray } from '../utils'
-import { generateNumAnswers } from '../gameUtils'
+import { getRandomArbitrary, shuffleArray } from '../../utils'
+import { generateNumAnswers } from '../../gameUtils'
 
 const config = {
   MIN: 0,

@@ -1,9 +1,9 @@
 'use client'
 
+import TextSelect from '@/components/games/Poem/TextSelect'
 import { Game, PoemGameData } from '@prisma/client'
-import TextSelect from '../game/TextSelect'
 import { useState } from 'react'
-import SpeakerButton from '../SpeakerButton'
+import SpeakerButton from '../../SpeakerButton'
 
 type Props = {
   data: Game & { poemGameData: PoemGameData | null }

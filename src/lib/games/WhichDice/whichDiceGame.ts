@@ -1,7 +1,7 @@
 import { Level, Numbers } from '@/types'
 import { nanoid } from 'nanoid'
-import { getRandomArbitrary, shuffleArray } from '../utils'
-import { generateNumAnswers, splitNumberToArr } from '../gameUtils'
+import { getRandomArbitrary, shuffleArray } from '../../utils'
+import { generateNumAnswers, splitNumberToArr } from '../../gameUtils'
 
 const configs = {
   easy: {

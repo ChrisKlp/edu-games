@@ -1,4 +1,4 @@
-import PoemView from '@/components/gameViews/PoemView'
+import PoemView from '@/components/games/Poem/PoemView'
 import { prisma } from '@/lib/db/prisma'
 import { notFound } from 'next/navigation'
 

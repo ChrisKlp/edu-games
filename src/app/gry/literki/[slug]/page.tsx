@@ -1,7 +1,7 @@
-import EnglishQuizView from '@/components/gameViews/EnglishQuizView'
+import EnglishQuizView from '@/components/games/EnglishQuiz/EnglishQuizView'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/db/prisma'
-import LettersGameView from '@/components/gameViews/LettersGameView'
+import LettersGameView from '@/components/games/LettersGame/LettersGameView'
 
 type Props = { params: { slug: string } }
 

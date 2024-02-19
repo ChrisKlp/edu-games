@@ -1,6 +1,6 @@
 import { EnglishWord } from '@prisma/client'
-import { generateNumAnswers } from '../gameUtils'
-import { getRandomArbitrary, shuffleArray } from '../utils'
+import { generateNumAnswers } from '../../gameUtils'
+import { getRandomArbitrary, shuffleArray } from '../../utils'
 
 export type TEnglishQuiz = {
   questionNumber: number

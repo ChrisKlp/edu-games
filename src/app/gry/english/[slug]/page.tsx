@@ -1,4 +1,4 @@
-import EnglishQuizView from '@/components/gameViews/EnglishQuizView'
+import EnglishQuizView from '@/components/games/EnglishQuiz/EnglishQuizView'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/db/prisma'
 

@@ -1,5 +1,5 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/authOptions'
-import TypingGameView from '@/components/gameViews/TypingGameView'
+import TypingGameView from '@/components/games/TypingGame/TypingGameView'
 import { prisma } from '@/lib/db/prisma'
 import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'

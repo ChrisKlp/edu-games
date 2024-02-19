@@ -1,5 +1,5 @@
 import { PolishWord } from '@prisma/client'
-import { getRandomArbitrary, shuffleArray } from '../utils'
+import { getRandomArbitrary, shuffleArray } from '../../utils'
 
 export type TLettersGame = {
   questionNumber: number
