@@ -82,8 +82,9 @@ model Game {
     englishGameData EnglishGameData?
     poemGameData    PoemGameData?
 
-    gameCategory GameCategory @relation(fields: [category], references: [name])
-    gameSave     GameSave[]
+    gameCategory    GameCategory      @relation(fields: [category], references: [name])
+    gameSave        GameSave[]
+    LettersGameData LettersGameData[]
 
     @@index([category])
 }
@@ -106,6 +107,26 @@ model EnglishWord {
     englishGameData EnglishGameData? @relation(fields: [englishGameDataGameId], references: [gameId])
 
     @@index([englishGameDataGameId])
+}
+
+model LettersGameData {
+    gameId String       @id
+    data   PolishWord[]
+
+    game Game @relation(fields: [gameId], references: [id])
+
+    @@index([gameId])
+}
+
+model PolishWord {
+    id                    String  @id @default(cuid())
+    name                  String  @unique
+    image                 String
+    lettersGameDataGameId String?
+
+    lettersGameData LettersGameData? @relation(fields: [lettersGameDataGameId], references: [gameId])
+
+    @@index([lettersGameDataGameId])
 }
 
 model TypingGameData {
