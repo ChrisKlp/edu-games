@@ -93,6 +93,11 @@ export default function LettersGameView({ data }: Props) {
     }
   }
 
+  const handleNextRoundClick = () => {
+    handleClick(game.questionWord?.id || '')
+    setHiddenLetters([])
+  }
+
   const isError =
     hiddenLetters
       .filter((item) => Boolean(item))
@@ -126,7 +131,7 @@ export default function LettersGameView({ data }: Props) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 disabled={isError}
-                onClick={() => handleClick(game.questionWord?.id || '')}
+                onClick={handleNextRoundClick}
               >
                 <TbSquareRoundedChevronRightFilled className="h-auto w-12" />
               </motion.button>
