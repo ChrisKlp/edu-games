@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { IconType } from 'react-icons'
 import SpeakerButton from './SpeakerButton'
 import { getGameStyles } from '@/app/gameList'
 

@@ -36,7 +36,7 @@ export const useLettersGameStore = create<LettersGameStore>((set, get) => ({
     const updatedData = quizData.filter((item) => item.id !== id)
     return set((state) => ({
       game: lettersGame(updatedData),
-      points: state.points + (word?.id === state.game.questionWord.id ? 1 : 0),
+      points: state.points + (word?.id === state.game.questionWord?.id ? 1 : 0),
     }))
   },
   restart: (data) => {

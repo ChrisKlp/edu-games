@@ -34,10 +34,17 @@ export default async function LettersQuizPage({ params: { slug } }: Props) {
       data: [
         {
           id: 'adsasdm',
-          name: 'hulajnoga',
+          name: 'hulajn',
           image:
             'https://edugames.you2.pl/english//pink-and-violet/watermelon.jpg',
           lettersGameDataGameId: 'ads',
+        },
+        {
+          id: 'qwe',
+          name: 'drewno',
+          image:
+            'https://edugames.you2.pl/english//pink-and-violet/watermelon.jpg',
+          lettersGameDataGameId: 'ads2a',
         },
       ],
     },

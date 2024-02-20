@@ -5,6 +5,7 @@ import {
   TbSleigh,
   TbChristmasTree,
   TbMessageLanguage,
+  TbAbc,
 } from 'react-icons/tb'
 import {
   GiDominoTiles,
@@ -14,7 +15,7 @@ import {
 } from 'react-icons/gi'
 import { FiSun } from 'react-icons/fi'
 import { PiOrangeSlice, PiGameControllerBold } from 'react-icons/pi'
-import { FaRegHeart, FaHippo } from 'react-icons/fa6'
+import { FaRegHeart, FaHippo, FaLanguage } from 'react-icons/fa6'
 import { IoWaterOutline, IoFootball } from 'react-icons/io5'
 import { FaPencilAlt, FaRegKeyboard, FaBookOpen } from 'react-icons/fa'
 import { IconType } from 'react-icons'
@@ -135,6 +136,10 @@ const gameCategories = {
   pisanie: {
     bgColor: 'bg-pink-600',
     Icon: FaRegKeyboard,
+  },
+  literki: {
+    bgColor: 'bg-red-600',
+    Icon: TbAbc,
   },
 } as Record<string, any>
 

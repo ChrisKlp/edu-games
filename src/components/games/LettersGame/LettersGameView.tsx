@@ -1,15 +1,16 @@
 'use client'
 
 import GameLayout from '@/components/games/GameLayout'
-import LetterButton from '@/components/games/LettersGame/LetterButton'
 import { useLettersGameStore } from '@/lib/games/LettersGame/useLettersGameStore'
 import useGameController from '@/lib/useGameController'
 import { useGameSessionStore } from '@/lib/useGameSessionStore'
 import { cn } from '@/lib/utils'
 import { Game, LettersGameData, PolishWord } from '@prisma/client'
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import TalkingFadeInImage from '../../TalkingFadeInImage'
+import { useEffect, useState } from 'react'
+import TalkingFadeInImage from '@/components/TalkingFadeInImage'
+import HiddenLetters from '@/components/games/LettersGame/HiddenLetters'
+import { TbSquareRoundedChevronRightFilled } from 'react-icons/tb'
 
 type Props = {
   data: Game & {
@@ -17,21 +18,32 @@ type Props = {
   }
 }
 
-type Letter = {
+export type Letter = {
   value: string
   index: number
   isSelected: boolean
 }
 
 export default function LettersGameView({ data }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
   const { game, points, nextRound, restart, setData } = useLettersGameStore()
-  const { round, nextGameRound, endGame, resetSession, setMaxRounds } =
-    useGameSessionStore()
+  const {
+    round,
+    nextGameRound,
+    endGame,
+    resetSession,
+    setMaxRounds,
+    maxRounds,
+  } = useGameSessionStore()
   const { handleClick, restartGame } = useGameController({
     init: () => {
-      data.lettersGameData?.data && setData(data.lettersGameData.data)
-      setMaxRounds(10)
+      if (data.lettersGameData?.data.length) {
+        setData(data.lettersGameData.data)
+        setMaxRounds(
+          data.lettersGameData.data.length > 10
+            ? 10
+            : data.lettersGameData.data.length,
+        )
+      }
     },
     restart: () => {
       data.lettersGameData?.data && restart(data.lettersGameData.data)
@@ -45,43 +57,13 @@ export default function LettersGameView({ data }: Props) {
   const [letters, setLetters] = useState<Letter[]>([])
 
   useEffect(() => {
-    if (game.questionWord.name) {
-      setHiddenLetters(game.questionWord.name.split('').map((i) => null))
+    if (game.questionWord?.name) {
+      setHiddenLetters(game.questionWord?.name.split('').map((i) => null))
       setLetters(
         game.letters.map((l, i) => ({ value: l, index: i, isSelected: false })),
       )
     }
   }, [game.questionWord, game.letters])
-
-  useEffect(() => {
-    const handleHiddenLetterSize = () => {
-      if (ref.current && hiddenLetters.length) {
-        ref.current.style.transform = ''
-        ref.current.style.left = ''
-
-        const safeMargin = 32
-        // @ts-ignore
-        let parentWidth = ref.current.parentNode?.offsetWidth
-        const scale = parentWidth / ref.current.offsetWidth
-
-        if (scale < 1) {
-          ref.current.style.transform = `scale(${scale}) translateX(0)`
-          ref.current.style.left = '0'
-          const { left } = ref.current.getBoundingClientRect()
-          ref.current.style.left = `-${left - safeMargin / 2}px`
-          // @ts-ignore
-          ref.current.parentNode.style.overflow = 'unset'
-        }
-      }
-    }
-    window.addEventListener('resize', handleHiddenLetterSize)
-    window.addEventListener('orientationchange', handleHiddenLetterSize)
-    handleHiddenLetterSize()
-    return () => {
-      window.removeEventListener('resize', handleHiddenLetterSize)
-      window.removeEventListener('orientationchange', handleHiddenLetterSize)
-    }
-  }, [hiddenLetters.length, ref])
 
   const handleAddLetter = (letter: Letter) => {
     const nextHiddenLetters = [...hiddenLetters]
@@ -111,54 +93,64 @@ export default function LettersGameView({ data }: Props) {
     }
   }
 
+  const isError =
+    hiddenLetters
+      .filter((item) => Boolean(item))
+      .map((i) => i?.value)
+      .join('') !== game.questionWord?.name
+
   return (
     <GameLayout
       gameId={data.id}
       endGame={endGame}
       points={points}
       round={round}
+      maxRounds={maxRounds}
       restart={restartGame}
     >
       <div
         key={round}
         className="grid h-full grid-rows-[1fr_auto] items-start gap-8"
       >
-        <div className="grid justify-items-center gap-8">
-          {game.questionWord.image && (
-            <TalkingFadeInImage
-              src={game.questionWord.image}
-              text={game.questionWord.name}
-            />
-          )}
-          <div className="relative h-[104px] w-full overflow-hidden">
-            <div
-              ref={ref}
-              className="absolute left-1/2 top-0 flex -translate-x-1/2 justify-center gap-2"
-            >
-              {hiddenLetters.map((letter, index) => (
-                <LetterButton
-                  key={`${letter}-${index}`}
-                  letter={game.questionWord.name[index]}
-                  selectedLetter={letter?.value || null}
-                  onClick={() => handleRemoveLetter(index)}
-                />
-              ))}
+        <div className="grid justify-items-center gap-8 self-center">
+          {game.questionWord?.image && (
+            <div className="flex w-full items-center justify-between">
+              <div className="h-auto w-12" />
+              <TalkingFadeInImage
+                src={game.questionWord.image}
+                text={game.questionWord.name}
+              />
+              <motion.button
+                type="button"
+                className={cn(isError ? 'text-slate-300' : 'text-sky-600')}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                disabled={isError}
+                onClick={() => handleClick(game.questionWord?.id || '')}
+              >
+                <TbSquareRoundedChevronRightFilled className="h-auto w-12" />
+              </motion.button>
             </div>
-          </div>
+          )}
+          <HiddenLetters
+            letters={hiddenLetters}
+            hiddenWord={game.questionWord?.name || ''}
+            handleRemoveLetter={handleRemoveLetter}
+          />
         </div>
-        <motion.div
-          className="flex w-full flex-wrap justify-center gap-3"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          {letters &&
-            letters.map((letter) => (
+        {letters && (
+          <motion.div
+            className="flex w-full flex-wrap justify-center gap-3"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            {letters.map((letter) => (
               <button
                 type="button"
                 key={`${letter}-${letter.index}`}
                 className={cn(
-                  'w-full max-w-[40px] rounded-lg bg-white p-2 py-3 text-xl font-semibold capitalize drop-shadow-xl',
+                  'w-full max-w-[48px] rounded-lg bg-white p-2 py-4 text-2xl font-semibold capitalize drop-shadow-xl',
                   letter.isSelected && 'opacity-25',
                 )}
                 onClick={() => handleAddLetter(letter)}
@@ -167,7 +159,8 @@ export default function LettersGameView({ data }: Props) {
                 {letter.value}
               </button>
             ))}
-        </motion.div>
+          </motion.div>
+        )}
       </div>
     </GameLayout>
   )
