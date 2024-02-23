@@ -81,10 +81,10 @@ model Game {
     typingGameData  TypingGameData?
     englishGameData EnglishGameData?
     poemGameData    PoemGameData?
+    lettersGameData LettersGameData?
 
     gameCategory    GameCategory      @relation(fields: [category], references: [name])
     gameSave        GameSave[]
-    LettersGameData LettersGameData[]
 
     @@index([category])
 }

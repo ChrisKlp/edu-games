@@ -6,48 +6,21 @@ import LettersGameView from '@/components/games/LettersGame/LettersGameView'
 type Props = { params: { slug: string } }
 
 export default async function LettersQuizPage({ params: { slug } }: Props) {
-  // const data = await prisma.game.findFirst({
-  //   where: {
-  //     slug: slug,
-  //   },
-  //   include: {
-  //     englishGameData: {
-  //       include: {
-  //         data: true,
-  //       },
-  //     },
-  //   },
-  // })
-
-  // if (!data?.englishGameData?.data) {
-  //   notFound()
-  // }
-
-  const data = {
-    id: 'asdasdasd22323',
-    name: 'literki',
-    slug: 'literki',
-    language: 'pl-PL',
-    category: 'letters',
-    lettersGameData: {
-      gameId: '3d3',
-      data: [
-        {
-          id: 'adsasdm',
-          name: 'hulajn',
-          image:
-            'https://edugames.you2.pl/english//pink-and-violet/watermelon.jpg',
-          lettersGameDataGameId: 'ads',
-        },
-        {
-          id: 'qwe',
-          name: 'drewno',
-          image:
-            'https://edugames.you2.pl/english//pink-and-violet/watermelon.jpg',
-          lettersGameDataGameId: 'ads2a',
-        },
-      ],
+  const data = await prisma.game.findFirst({
+    where: {
+      slug: slug,
     },
+    include: {
+      lettersGameData: {
+        include: {
+          data: true,
+        },
+      },
+    },
+  })
+
+  if (!data?.lettersGameData?.data) {
+    notFound()
   }
 
   return (
