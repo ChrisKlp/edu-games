@@ -18,7 +18,7 @@ export default function TalkingFadeInImage({
   className,
   language = 'pl-PL',
   src,
-  size = 150,
+  size = 200,
 }: Props) {
   const { speak, supported, cancel } = useTTS(language)
 

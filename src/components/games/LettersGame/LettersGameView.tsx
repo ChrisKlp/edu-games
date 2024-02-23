@@ -120,7 +120,7 @@ export default function LettersGameView({ data }: Props) {
         <div className="grid justify-items-center gap-8 self-center">
           {game.questionWord?.image && (
             <div className="flex w-full items-center justify-between">
-              <div className="h-auto w-12" />
+              <div className="h-auto w-16" />
               <TalkingFadeInImage
                 src={game.questionWord.image}
                 text={game.questionWord.name}
@@ -133,7 +133,7 @@ export default function LettersGameView({ data }: Props) {
                 disabled={isError}
                 onClick={handleNextRoundClick}
               >
-                <TbSquareRoundedChevronRightFilled className="h-auto w-12" />
+                <TbSquareRoundedChevronRightFilled className="h-auto w-16" />
               </motion.button>
             </div>
           )}
