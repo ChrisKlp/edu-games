@@ -19,7 +19,6 @@ export default function LetterButton({
       type="button"
       className={cn(
         "relative w-12 flex-shrink-0 rounded-lg bg-white p-2 py-4 text-2xl font-semibold capitalize drop-shadow-xl after:absolute after:left-0 after:top-0 after:h-full after:w-full after:rounded-lg after:content-['']",
-        selectedLetter && shadowStyle,
       )}
       onClick={onClick}
     >

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import TalkingFadeInImage from '@/components/TalkingFadeInImage'
 import HiddenLetters from '@/components/games/LettersGame/HiddenLetters'
 import { TbSquareRoundedChevronRightFilled } from 'react-icons/tb'
+import SpeakerButton from '@/components/SpeakerButton'
 
 type Props = {
   data: Game & {
@@ -104,6 +105,18 @@ export default function LettersGameView({ data }: Props) {
       .map((i) => i?.value)
       .join('') !== game.questionWord?.name
 
+  const getGuessedLetters = () => {
+    let guessedLetters = ''
+    const filteredLetters = hiddenLetters.filter((item) => Boolean(item))
+    if (filteredLetters.length > 0) {
+      guessedLetters = hiddenLetters
+        .filter((item) => Boolean(item))
+        .map((i) => i?.value)
+        .join('')
+    }
+    return guessedLetters
+  }
+
   return (
     <GameLayout
       gameId={data.id}
@@ -125,16 +138,23 @@ export default function LettersGameView({ data }: Props) {
                 src={game.questionWord.image}
                 text={game.questionWord.name}
               />
-              <motion.button
-                type="button"
-                className={cn(isError ? 'text-slate-300' : 'text-sky-600')}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                disabled={isError}
-                onClick={handleNextRoundClick}
-              >
-                <TbSquareRoundedChevronRightFilled className="h-auto w-16" />
-              </motion.button>
+              <div className="grid justify-items-center gap-2">
+                <motion.button
+                  type="button"
+                  className={cn(isError ? 'text-slate-300' : 'text-sky-600')}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  disabled={isError}
+                  onClick={handleNextRoundClick}
+                >
+                  <TbSquareRoundedChevronRightFilled className="h-auto w-16" />
+                </motion.button>
+                <SpeakerButton
+                  language={data.language}
+                  text={getGuessedLetters()}
+                  className="bg-red-600 text-white"
+                />
+              </div>
             </div>
           )}
           <HiddenLetters
